@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -57,7 +56,7 @@
                 android:layout_marginRight="100dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="25"
-                android:fontFamily="@font/amaranth_bold"
+                android:fontFamily="@font/bree_serif"
                 android:gravity="center"
                 android:text="Login"
                 android:textColor="@color/colorRed"
@@ -177,30 +176,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="15"
+            android:layout_weight="12"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:gravity="center"
             android:orientation="vertical">
 
-
-
             <Button
+                android:id="@+id/btnlogin"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="60"
-                android:textColor="@color/colorWhite"
-                android:textSize="20sp"
+                android:textColor="@color/colorRed"
+                android:gravity="center"
+                android:textSize="18sp"
                 android:text="Login"
                 android:background="@drawable/button_enabled"
-                android:fontFamily="@font/amaranth_bold"
+                android:fontFamily="@font/bree_serif"
                 android:elevation="10dp"
-                android:id="@+id/btnlogin"
-                android:padding="10dp"
+                android:padding="8dp"
                 android:textStyle="bold"
                 android:layout_marginRight="90dp"
                 android:layout_marginBottom="15dp"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginLeft="90dp"/>
 
         </LinearLayout>
@@ -211,7 +209,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="20"
+        android:layout_weight="23"
         android:orientation="horizontal"
         android:gravity="center|bottom">
 

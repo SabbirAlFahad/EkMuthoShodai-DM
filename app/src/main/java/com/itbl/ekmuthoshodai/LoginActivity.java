@@ -14,11 +14,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.res.ResourcesCompat;
-
+import com.google.android.material.textfield.TextInputEditText;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -30,7 +31,9 @@ import java.net.URL;
 
 public class LoginActivity extends Activity {
 
-    TextView txt_remember, LogUser,LogPassword, txt_login, itbl;
+    TextView txt_remember, txt_login, itbl;
+    EditText LogUser;
+    TextInputEditText LogPassword;
     Button btnLogin;
     CheckBox remember;
     Animation btnAnim;
@@ -49,9 +52,9 @@ public class LoginActivity extends Activity {
         txt_remember=  findViewById(R.id.txt_remember);
         btnLogin=  findViewById(R.id.btnlogin);
 
-        txt_login.setTypeface(ResourcesCompat.getFont(this, R.font.amaranth_bold));
+        txt_login.setTypeface(ResourcesCompat.getFont(this, R.font.bree_serif));
         itbl.setTypeface(ResourcesCompat.getFont(this, R.font.amaranth_bold));
-        btnLogin.setTypeface(ResourcesCompat.getFont(this, R.font.amaranth_bold));
+        btnLogin.setTypeface(ResourcesCompat.getFont(this, R.font.bree_serif));
 
         btnAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.btn_bounce);
 
@@ -84,7 +87,6 @@ public class LoginActivity extends Activity {
 
         });
 
-
         //Remember me
         remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -92,7 +94,6 @@ public class LoginActivity extends Activity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
 
                 if(compoundButton.isChecked()){
-
                     SharedPreferences loginPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
                     SharedPreferences.Editor preferencesEditor = loginPreferences.edit();
                     preferencesEditor.putString("remember", "true");
@@ -130,7 +131,6 @@ public class LoginActivity extends Activity {
         protected void onPreExecute() {
             pd = ProgressDialog.show(LoginActivity.this, "Login Processing",
                     "Please wait...");
-
         }
 
         @Override
@@ -183,11 +183,9 @@ public class LoginActivity extends Activity {
                     newuser1= json_data.getString("USERNAME");
                     newpass1 = json_data.getString("PASSWORD");
                 }
-
             }
             catch (Exception e) {
                 Log.e("log_tag", "Error in http connection!!" + e.toString());
-
             }
             return result;
         }
@@ -196,7 +194,6 @@ public class LoginActivity extends Activity {
         protected void onPostExecute(String result) {
             pd.dismiss();
             startActivity(new Intent(LoginActivity.this,Home.class));
-
         }
     }
 }

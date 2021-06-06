@@ -5,52 +5,63 @@
 
         <item
             android:id="@+id/nav_home"
-            android:title="Home" />
-
-        <item
-            android:id="@+id/nav_bus"
-            android:title="Bus" />
-
-        <item
-            android:id="@+id/nav_plane"
-            android:title="Plane" />
+            android:icon="@drawable/home_svg"
+            android:title="Dashboard" />
 
     </group>
 
-    <item android:title="Profile">
+    <item android:title="My Profile">
 
         <menu>
-
             <group android:checkableBehavior="single">
 
                 <item
-                    android:id="@+id/nav_login"
-                    android:title="Login" />
-
-                <item
-                    android:id="@+id/nav_profile"
-                    android:title="Profile" />
+                    android:id="@+id/nav_cPass"
+                    android:icon="@drawable/password_svg"
+                    android:title="Change Password" />
 
                 <item
                     android:id="@+id/nav_logout"
+                    android:icon="@drawable/logout_svg"
                     android:title="Logout" />
+
             </group>
         </menu>
+
     </item>
 
-    <item android:title="Communicate">
+    <item android:title="My Product">
 
         <menu>
 
             <item
-                android:id="@+id/nav_share"
-                android:title="Share" />
+                android:id="@+id/nav_myProduct"
+                android:icon="@drawable/product_svg"
+                android:title="My Product" />
+
 
             <item
-                android:id="@+id/nav_rate"
-                android:title="Rate Us" />
+                android:id="@+id/nav_entry"
+                android:icon="@drawable/new_entry_svg"
+                android:title="New Entry" />
+
+            <item
+                android:id="@+id/nav_order"
+                android:icon="@drawable/order_svg"
+                android:title="Orders" />
         </menu>
     </item>
 
+
+    <item android:title="In Voice">
+
+        <menu>
+            <item
+                android:id="@+id/nav_inVoice"
+                android:icon="@drawable/invoice_svg"
+                android:title="In Voice" />
+
+        </menu>
+    </item>
 
 </menu>

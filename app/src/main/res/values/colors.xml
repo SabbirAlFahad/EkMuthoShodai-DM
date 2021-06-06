@@ -8,4 +8,7 @@
     <color name="colorBlack">#000000</color>
     <color name="colorBG">#3F51B5</color>
     <color name="colorBtn">#00FFCD</color>
+    <color name="colorSilver">#eaeaea</color>
+    <color name="colorSilver2">#e1e1e1</color>
+    <color name="colorHint">#37000000</color>
 </resources>

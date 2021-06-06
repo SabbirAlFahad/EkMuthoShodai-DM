@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <dist:module dist:instant="true" />
 
@@ -28,6 +29,10 @@
         </activity>
         <activity android:name=".Home" />
         <activity android:name=".LoginActivity" />
+        <activity android:name=".ChangePassword" />
+        <activity android:name=".NewProductEntry" />
+        <activity android:name=".MyProduct" />
+        <activity android:name=".ProductOrder" />
 
         <meta-data
             android:name="preloaded_fonts"
