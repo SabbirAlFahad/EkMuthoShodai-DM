@@ -23,7 +23,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="30"
+                android:layout_weight="25"
                 android:text="  ITEM NAME"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -32,7 +32,7 @@
 
 
             <TextView
-                android:id="@+id/view_imName"
+                android:id="@+id/imName"
                 android:textColor="@color/colorBlack"
                 android:textSize="14sp"
                 android:gravity="center"
@@ -59,7 +59,7 @@
                 android:gravity="center|start"/>
 
             <TextView
-                android:id="@+id/view_imStock"
+                android:id="@+id/imStock"
                 android:layout_width="0dp"
                 android:layout_weight="70"
                 android:gravity="center"

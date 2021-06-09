@@ -123,12 +123,12 @@ public class Home extends AppCompatActivity {
     }
 
     private void goToProductOrder() {
-        Intent intent = new Intent(this, ProductOrder.class);
+        Intent intent = new Intent(this, ProductOrderList.class);
         startActivity(intent);
     }
 
     private void goToMyProduct() {
-        Intent intent = new Intent(this, MyProduct.class);
+        Intent intent = new Intent(this, MyProductList.class);
         startActivity(intent);
     }
 

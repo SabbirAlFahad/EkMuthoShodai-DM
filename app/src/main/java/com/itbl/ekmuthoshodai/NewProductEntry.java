@@ -1,10 +1,14 @@
 package com.itbl.ekmuthoshodai;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,11 +18,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.core.content.res.ResourcesCompat;
 
-import com.itbl.ekmuthoshodai.Interface.APIPassId;
 import com.itbl.ekmuthoshodai.entities.ItemChild;
 import com.itbl.ekmuthoshodai.entities.ItemParent;
 
@@ -26,37 +28,43 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
-
 
 public class NewProductEntry extends Activity {
 
     TextView txtPromo,
-            createdByV, iTAmountV, iRateV, iAmountV, iQuantityV, cDateV, iDisV, iStockV ;
+            createdByV, iTAmountV, iRateV, iAmountV, iQuantityV, cDateV, iDisV, iStockV;
     Button btnSaveEntry, btn_back;
 
     Spinner iNameSpin, iNameSpin2;
 
-    private ArrayList<String> getItemName =new ArrayList<String>();
-    private ArrayList<String> getItemCName =new ArrayList<String>();
+    private ArrayList<String> getPId = new ArrayList<String>();
+    private ArrayList<String> getCId = new ArrayList<String>();
+    private ArrayList<String> getPName = new ArrayList<String>();
+    private ArrayList<String> getCName = new ArrayList<String>();
 
-    public String postiNameSpin, postiNameSpin2, postcreatedByV, postiTAmountV,
-            postiRateV, postiAmountV, postiQuantityV, postcDateV, postiDisV, postiStockV;
+    //public String postiNameSpin, postiNameSpin2, postcreatedByV, postiTAmountV,
+    // postiRateV, postiAmountV, postiQuantityV, postcDateV, postiDisV, postiStockV;
 
     //calender
-      private DatePickerDialog.OnDateSetListener mDateSetListener;
-      private static final String TAG = "NewProductEntry";
-
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
+    private static final String TAG = "NewProductEntry";
+    String getItemId="";
+    String getItemId2="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +100,7 @@ public class NewProductEntry extends Activity {
                         NewProductEntry.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         mDateSetListener,
-                        year,month,day);
+                        year, month, day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -116,15 +124,14 @@ public class NewProductEntry extends Activity {
             }
         });
 
-        getItemParent();
-
         btnSaveEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 goToHome();
 
-                //postiNameSpin=iNameSpin.getText().toString().trim();
-                //postiNameSpin2=iNameSpin2.getText().toString().trim();
+               /* postiNameSpin=iNameSpin.getSelectedItem().toString().trim();
+                postiNameSpin2=iNameSpin2.getSelectedItem().toString().trim();
 
                 postcreatedByV=createdByV.getText().toString().trim();
                 postiTAmountV=iTAmountV.getText().toString().trim();
@@ -145,7 +152,7 @@ public class NewProductEntry extends Activity {
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         try { String s = response.body().string();
                          Toast.makeText( NewProductEntry.this, s, Toast.LENGTH_LONG)
-                                 . show();
+                                 .show();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -156,170 +163,173 @@ public class NewProductEntry extends Activity {
                         Toast.makeText( NewProductEntry.this, t.getMessage(), Toast.LENGTH_LONG)
                                 . show();
                     }
-                });
+                }); */
             }
         });
 
+        NewProduct task = new NewProduct(NewProductEntry.this);
+        task.execute();
+
     }
 
-    private void goToHome() {
-        Intent intent = new Intent(NewProductEntry.this,Home.class);
-        startActivity(intent);
-    }
+    private class NewProduct extends AsyncTask<Void, Void, String> {
 
-    private void getItemParent() {
+        @SuppressWarnings("unused")
+        private Activity context;
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(APIPassId.BASE_URL)
-                .addConverterFactory(ScalarsConverterFactory.create()).build();
+        @SuppressWarnings("unused")
+        ProgressDialog pd = null;
 
-        APIPassId apiPassId = retrofit.create(APIPassId.class);
-        Call<String> call = apiPassId.getItemParent();
 
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+        public NewProduct(Activity context) {
+            this.context = context;
+        }
 
-                Log.i( "Response",response.body().toString());
-                if(response.isSuccessful()){
+        @Override
+        protected void onPreExecute() {
+            pd = ProgressDialog.show(NewProductEntry.this, "Data Processing",
+                    "Please wait...");
+        }
 
-                    if(response.body()!=null){
-                        Log.i( "Success",response.body().toString());
+        @Override
+        protected String doInBackground(Void... params) {
+            String result = "";
 
-                        try {
-                            String getResponse=response.body().toString();
-                            List<ItemParent> getItemParentData=new ArrayList<ItemParent>();
+            try {
+                String response = CustomHttpClientGet.execute("http://192.168.22.253:8010/Parent_Item");
+                result = response.toString();
 
-                            JSONArray jsonArray = new JSONArray(getResponse);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-                            getItemParentData.add(new ItemParent(-1,"---SELECT ITEM NAME---"));
+            try {
+                JSONArray jArray = new JSONArray(result.toString());
+                for (int i = 0; i < jArray.length(); i++) {
+                    JSONObject json_data = jArray.getJSONObject(i);
 
-                            for(int i=0; 1<jsonArray.length();i++) {
+                    getPId.add(json_data.getString("item_ID"));
+                    getPName.add(json_data.getString("item_DESCR"));
 
-                                ItemParent itemParent= new ItemParent();
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                                itemParent.setItemId(jsonObject.getInt("itm_ID"));
-                                itemParent.setItemName(jsonObject.getString("itm_Name"));
-                                getItemParentData.add(itemParent);
-
-                            }
-
-                            for (int i=0; 1<getItemParentData.size();i++) {
-                                getItemName.add(getItemParentData.get(i).getItemName().toString());
-                            }
-
-                            ArrayAdapter<String> spinItemPAdapter =
-                                    new ArrayAdapter<String>(NewProductEntry.this,
-                                            android.R.layout.simple_spinner_item, getItemName);
-
-                            spinItemPAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-                            iNameSpin.setAdapter(spinItemPAdapter);
-                            iNameSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                @Override
-                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                                    int getItemParentID = getItemParentData.get(position).getItemId();
-                                    get_itemChild(getItemParentID);
-
-                                }
-
-                                @Override
-                                public void onNothingSelected(AdapterView<?> parent) {
-
-                                }
-                            });
-
-                            } catch (JSONException e) {
-                            e.printStackTrace();
-
-                                 }
-
-                             }
-                    }
                 }
 
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            } catch (Exception e) {
+                Log.e("log_tag", "Error in http connection!!" + e.toString());
 
             }
-        });
 
-    }
+            return result;
+        }
 
-    private void get_itemChild(int getItemId) {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(APIPassId.BASE_URL)
-                .addConverterFactory(ScalarsConverterFactory.create()).build();
+        @Override
+        protected void onPostExecute(String result) {
+            pd.dismiss();
+            ArrayAdapter<String> spinItemPAdapter = new ArrayAdapter<String>(NewProductEntry.this,
+                    android.R.layout.simple_spinner_item, getPName);
 
-        APIPassId apiPassId = retrofit.create(APIPassId.class);
-        Call<String> call = apiPassId.getItemChild(getItemId);
+            spinItemPAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                Log.i( "Response",response.body().toString());
-                    if(response.isSuccessful()) {
+            iNameSpin.setAdapter(spinItemPAdapter);
+            iNameSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                      if (response.body() != null) {
-                          Log.i("Success", response.body().toString());
+                    getItemId = getPId.get(position);
+                    CProduct task = new CProduct(NewProductEntry.this);
+                    task.execute();
 
-                        try {
-                            String getResponse= response.body().toString();
-                            List<ItemChild> getItemChildData = new ArrayList<ItemChild>();
-                            JSONArray jsonArray = new JSONArray(getResponse);
-
-                            getItemChildData.add(new ItemChild( -1, -1, "---SELECT CHILD ITEM---"));
-
-                            for(int i=0; 1<jsonArray.length();i++) {
-                                ItemChild itemChild= new ItemChild();
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                                itemChild.setItemCId(jsonObject.getInt("itm_CID"));
-                                itemChild.setItemCName(jsonObject.getString("itm_CName"));
-                                getItemChildData.add(itemChild);
-                            }
-
-                            for (int i=0; 1<getItemChildData.size();i++) {
-                                getItemCName.add(getItemChildData.get(i).getItemCName().toString());
-                            }
-
-                            ArrayAdapter<String> spinItemPAdapter =
-                                    new ArrayAdapter<String>(NewProductEntry.this,
-                                            android.R.layout.simple_spinner_item, getItemName);
-
-                            spinItemPAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            iNameSpin2.setAdapter(spinItemPAdapter);
-
-                            iNameSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                @Override
-                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                                    int getItemChildID = getItemChildData.get(position).getItemCId();
-                                    get_itemChild(getItemChildID);
-
-                                }
-
-                                @Override
-                                public void onNothingSelected(AdapterView<?> parent) {
-
-                                }
-                            });
-
-                        }catch (JSONException e){
-                            e.printStackTrace();
-
-                        }
-
-                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
-
+                }
+            });
+        }
     }
+    private class CProduct extends AsyncTask<Void, Void, String> {
+
+        @SuppressWarnings("unused")
+        private Activity context;
+
+        @SuppressWarnings("unused")
+        ProgressDialog pd = null;
+
+
+        public CProduct(Activity context) {
+            this.context = context;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            pd = ProgressDialog.show(NewProductEntry.this, "Login Processing",
+                    "Please wait...");
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String result = "";
+
+            try {
+                String response = CustomHttpClientGet.execute("http://192.168.22.253:8010/Child_Item/"+getItemId);
+                result = response.toString();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                getCId.clear();
+                getCName.clear();
+                JSONArray jArray = new JSONArray(result.toString());
+                for (int i = 0; i < jArray.length(); i++) {
+                    JSONObject json_data = jArray.getJSONObject(i);
+
+                    getCId.add(json_data.getString("item_ID"));
+                    getCName.add(json_data.getString("item_DESCR"));
+
+                }
+
+            } catch (Exception e) {
+                Log.e("log_tag", "Error in http connection!!" + e.toString());
+
+            }
+
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            pd.dismiss();
+            ArrayAdapter<String> spinItemPAdapter = new ArrayAdapter<String>(NewProductEntry.this,
+                    android.R.layout.simple_spinner_item, getCName);
+
+            spinItemPAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            iNameSpin2.setAdapter(spinItemPAdapter);
+            iNameSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                    getItemId2 = getCId.get(position);
+
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }
+    }
+
+
+
+        private void goToHome() {
+            Intent intent = new Intent(NewProductEntry.this, Home.class);
+            startActivity(intent);
+        }
 
 }

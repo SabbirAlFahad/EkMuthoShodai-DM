@@ -101,7 +101,6 @@ public class LoginActivity extends Activity {
                     Toast.makeText(LoginActivity.this,"Checked",Toast.LENGTH_SHORT).show();
 
                 }else if(!compoundButton.isChecked()){
-
                     SharedPreferences loginPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
                     SharedPreferences.Editor preferencesEditor = loginPreferences.edit();
                     preferencesEditor.putString("remember", "false");
@@ -121,7 +120,6 @@ public class LoginActivity extends Activity {
 
         @SuppressWarnings("unused")
         ProgressDialog pd=null;
-
 
         public Fetch(Activity context) {
             this.context = context;
