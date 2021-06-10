@@ -47,6 +47,7 @@ public class MyProductList extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_product);
+
         listView = findViewById(R.id.list_mProduct);
 
         btn_back = findViewById(R.id.btn_back);
@@ -123,7 +124,7 @@ public class MyProductList extends Activity {
             }
 
             catch (Exception e) {
-                Log.e("log_tag", "Error in http connection!!" + e.toString());
+                Log.e("log_tag", "Error in http connection !" + e.toString());
             }
 
             return result;

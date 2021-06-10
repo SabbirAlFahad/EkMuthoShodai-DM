@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".NewProductEntry">
 
     <LinearLayout
         android:id="@+id/hdr"
@@ -107,10 +109,10 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="15dp"
                     android:layout_weight="60"
-                    android:textColorHint="@color/colorHint"
+                    android:textColorHint="#3F51B5"
                     android:gravity="center|start"
                     android:padding="5dp"
-                    android:textColor="@color/colorBG"
+                    android:textColor="#3F51B5"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -143,10 +145,10 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="15dp"
                     android:layout_weight="60"
-                    android:textColorHint="@color/colorHint"
                     android:gravity="center|start"
                     android:padding="5dp"
-                    android:textColor="@color/colorBG"
+                    android:textColor="#3F51B5"
+                    android:textColorHint="#3F51B5"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -172,7 +174,7 @@
                     android:fontFamily="@font/bree_serif"
                     android:textColor="@color/colorBlack"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/cDateV"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -183,6 +185,7 @@
                     android:layout_marginRight="15dp"
                     android:gravity="center"
                     android:textSize="16sp"
+                    android:paddingLeft="15dp"
                     android:background="@drawable/edit_text_bg"
                     android:textColor="@color/colorBlack"/>
 
@@ -223,6 +226,85 @@
                     android:background="@drawable/edit_text_bg"
                     android:textColor="@color/colorBlack"/>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:orientation="horizontal"
+                android:paddingRight="5dp"
+                android:gravity="center"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/iStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="40"
+                    android:text=" Discount"
+                    android:textStyle="bold"
+                    android:gravity="center|start"
+                    android:textSize="16sp"
+                    android:elevation="3dp"
+                    android:fontFamily="@font/bree_serif"
+                    android:textColor="@color/colorBlack"/>
+
+                <EditText
+                    android:id="@+id/iDisV"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="60"
+                    android:paddingLeft="5dp"
+                    android:hint=" Enter Discount"
+                    android:textColorHint="@color/colorHint"
+                    android:gravity="center|start"
+                    android:textSize="16sp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/edit_text_bg"
+                    android:fontFamily="@font/bree_serif"
+                    android:textColor="@color/colorBlack"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:orientation="horizontal"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:padding="15dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/iStock"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="40"
+                    android:text=" Stock"
+                    android:textStyle="bold"
+                    android:gravity="center|start"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="5dp"
+                    android:elevation="3dp"
+                    android:fontFamily="@font/bree_serif"
+                    android:textColor="@color/colorBlack"/>
+
+                <EditText
+                    android:id="@+id/iStockV"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="60"
+                    android:paddingLeft="5dp"
+                    android:hint=" Enter Stock"
+                    android:textColorHint="@color/colorHint"
+                    android:gravity="center|start"
+                    android:layout_marginRight="20dp"
+                    android:textSize="16sp"
+                    android:background="@drawable/edit_text_bg"
+                    android:fontFamily="@font/bree_serif"
+                    android:textColor="@color/colorBlack"/>
 
             </LinearLayout>
 
@@ -353,85 +435,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="10"
-                android:orientation="horizontal"
-                android:paddingRight="5dp"
-                android:gravity="center"
-                android:padding="15dp">
-
-                <TextView
-                    android:id="@+id/iStatus"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="40"
-                    android:text=" Discount"
-                    android:textStyle="bold"
-                    android:gravity="center|start"
-                    android:textSize="16sp"
-                    android:elevation="3dp"
-                    android:fontFamily="@font/bree_serif"
-                    android:textColor="@color/colorBlack"/>
-
-                <EditText
-                    android:id="@+id/iDisV"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="60"
-                    android:paddingLeft="5dp"
-                    android:hint=" Enter Discount"
-                    android:textColorHint="@color/colorHint"
-                    android:gravity="center|start"
-                    android:textSize="16sp"
-                    android:layout_marginRight="15dp"
-                    android:background="@drawable/edit_text_bg"
-                    android:fontFamily="@font/bree_serif"
-                    android:textColor="@color/colorBlack"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="10"
-                android:orientation="horizontal"
-                android:paddingRight="5dp"
-                android:paddingLeft="5dp"
-                android:padding="15dp"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/iStock"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="40"
-                    android:text=" Stock"
-                    android:textStyle="bold"
-                    android:gravity="center|start"
-                    android:textSize="16sp"
-                    android:layout_marginLeft="5dp"
-                    android:elevation="3dp"
-                    android:fontFamily="@font/bree_serif"
-                    android:textColor="@color/colorBlack"/>
-
-                <EditText
-                    android:id="@+id/iStockV"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="60"
-                    android:paddingLeft="5dp"
-                    android:hint=" Enter Stock"
-                    android:textColorHint="@color/colorHint"
-                    android:gravity="center|start"
-                    android:layout_marginRight="20dp"
-                    android:textSize="16sp"
-                    android:background="@drawable/edit_text_bg"
-                    android:fontFamily="@font/bree_serif"
-                    android:textColor="@color/colorBlack"/>
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -448,6 +451,7 @@
                     android:gravity="center"
                     android:textSize="16sp"
                     android:text="Save Product"
+                    android:onClick="PostData"
                     android:textStyle="bold"
                     android:background="@drawable/button_enabled"
                     android:fontFamily="@font/bree_serif"

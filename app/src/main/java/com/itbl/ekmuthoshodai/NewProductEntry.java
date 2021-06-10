@@ -16,16 +16,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.core.content.res.ResourcesCompat;
 
-import com.itbl.ekmuthoshodai.entities.ItemChild;
-import com.itbl.ekmuthoshodai.entities.ItemParent;
+import com.itbl.ekmuthoshodai.entities.NewProductData;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -35,19 +34,17 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class NewProductEntry extends Activity {
 
-    TextView txtPromo,
-            createdByV, iTAmountV, iRateV, iAmountV, iQuantityV, cDateV, iDisV, iStockV;
+    TextView txtPromo;
+    EditText createdByV, iTAmountV, cDateV, iRateV, iAmountV, iQuantityV, iDisV, iStockV;
     Button btnSaveEntry, btn_back;
 
     Spinner iNameSpin, iNameSpin2;
@@ -57,14 +54,15 @@ public class NewProductEntry extends Activity {
     private ArrayList<String> getPName = new ArrayList<String>();
     private ArrayList<String> getCName = new ArrayList<String>();
 
-    //public String postiNameSpin, postiNameSpin2, postcreatedByV, postiTAmountV,
-    // postiRateV, postiAmountV, postiQuantityV, postcDateV, postiDisV, postiStockV;
-
     //calender
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private static final String TAG = "NewProductEntry";
+
     String getItemId="";
     String getItemId2="";
+    String postiNameSpin2, postcreatedByV, postcDateV, postiDisV, postiStockV ,
+            postiTAmountV, postiRateV, postiAmountV, postiQuantityV;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,52 +122,30 @@ public class NewProductEntry extends Activity {
             }
         });
 
+        NewProduct task = new NewProduct(NewProductEntry.this);
+        task.execute();
+
         btnSaveEntry.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
 
                 goToHome();
 
-               /* postiNameSpin=iNameSpin.getSelectedItem().toString().trim();
                 postiNameSpin2=iNameSpin2.getSelectedItem().toString().trim();
-
-                postcreatedByV=createdByV.getText().toString().trim();
+                postcDateV =cDateV.getText().toString().trim();
+                postcreatedByV= createdByV.getText().toString().trim();
+                postiDisV=iDisV.getText().toString().trim();
+                postiStockV=iStockV.getText().toString().trim();
                 postiTAmountV=iTAmountV.getText().toString().trim();
                 postiRateV=iRateV.getText().toString().trim();
                 postiAmountV=iAmountV.getText().toString().trim();
                 postiQuantityV=iQuantityV.getText().toString().trim();
-                postcDateV=cDateV.getText().toString().trim();
-                postiDisV=iDisV.getText().toString().trim();
-                postiStockV=iStockV.getText().toString().trim();
 
-                Call<ResponseBody> call = NewEntryClient.getInstance()
-                        .getNewEntryApi()
-                        .newEntry(postiNameSpin, postcreatedByV, postiTAmountV, postiRateV,
-                                postiAmountV, postiQuantityV, postcDateV, postiDisV, postiStockV);
+                NewEntry task = new NewEntry(NewProductEntry.this);
+                task.execute();
 
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        try { String s = response.body().string();
-                         Toast.makeText( NewProductEntry.this, s, Toast.LENGTH_LONG)
-                                 .show();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Toast.makeText( NewProductEntry.this, t.getMessage(), Toast.LENGTH_LONG)
-                                . show();
-                    }
-                }); */
             }
         });
-
-        NewProduct task = new NewProduct(NewProductEntry.this);
-        task.execute();
-
     }
 
     private class NewProduct extends AsyncTask<Void, Void, String> {
@@ -179,7 +155,6 @@ public class NewProductEntry extends Activity {
 
         @SuppressWarnings("unused")
         ProgressDialog pd = null;
-
 
         public NewProduct(Activity context) {
             this.context = context;
@@ -230,6 +205,7 @@ public class NewProductEntry extends Activity {
             spinItemPAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             iNameSpin.setAdapter(spinItemPAdapter);
+
             iNameSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -237,7 +213,6 @@ public class NewProductEntry extends Activity {
                     getItemId = getPId.get(position);
                     CProduct task = new CProduct(NewProductEntry.this);
                     task.execute();
-
                 }
 
                 @Override
@@ -247,6 +222,7 @@ public class NewProductEntry extends Activity {
             });
         }
     }
+
     private class CProduct extends AsyncTask<Void, Void, String> {
 
         @SuppressWarnings("unused")
@@ -262,8 +238,8 @@ public class NewProductEntry extends Activity {
 
         @Override
         protected void onPreExecute() {
-            pd = ProgressDialog.show(NewProductEntry.this, "Login Processing",
-                    "Please wait...");
+            pd = ProgressDialog.show(NewProductEntry.this, "Data Processing",
+                    "Please wait a bit...");
         }
 
         @Override
@@ -311,9 +287,7 @@ public class NewProductEntry extends Activity {
             iNameSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
                     getItemId2 = getCId.get(position);
-
 
                 }
 
@@ -326,6 +300,140 @@ public class NewProductEntry extends Activity {
     }
 
 
+    private class NewEntry extends AsyncTask<Void,Void,String> {
+
+        private Activity context;
+        @SuppressWarnings("unused")
+        ProgressDialog pd=null;
+
+        public NewEntry(Activity context) {
+            this.context = context;
+        }
+        @Override
+        protected void onPreExecute() {
+            pd = ProgressDialog.show(NewProductEntry.this, "Data Processing",
+                    "Please wait a bit for success...");
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String result = "0" ;
+            BufferedReader reader = null;
+            StringBuilder stringBuilder ;
+
+            try {
+                URL url = new URL(" ");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+                conn.setRequestProperty("Accept","application/json");
+                conn.setDoOutput(true);
+                conn.setDoInput(true);
+
+                JSONObject jsonParam = new JSONObject();
+
+                jsonParam.put("email", postiNameSpin2 );
+                jsonParam.put("password", postcDateV);
+                jsonParam.put("fname", postcreatedByV);
+                jsonParam.put("lname", postiDisV);
+                jsonParam.put("phone", postiStockV);
+                jsonParam.put("tdx", postiTAmountV);
+                jsonParam.put("image", postiRateV);
+                jsonParam.put("type", postiAmountV);
+                jsonParam.put("type", postiQuantityV);
+
+                Log.i("JSON", jsonParam.toString());
+                DataOutputStream os = new DataOutputStream(conn.getOutputStream());
+                //os.writeBytes(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
+                os.writeBytes(jsonParam.toString());
+
+                os.flush();
+                os.close();
+
+                Log.i("STATUS", String.valueOf(conn.getResponseCode()));
+                Log.i("MSG" , conn.getResponseMessage());
+                reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                stringBuilder = new StringBuilder();
+
+                String line = null;
+                while ((line = reader.readLine()) != null)
+                {
+                    stringBuilder.append(line + "\n");
+                }
+                result=stringBuilder.toString();
+                result=result.replaceAll("\n","");
+                conn.disconnect();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            pd.dismiss();
+            int r= Integer.parseInt(result);
+            if(r>0){
+
+                dialog("Message","Entered successful!!!");
+
+            }else{
+
+                dialog1("Failed! try again");
+            }
+        }
+    }
+
+
+    public void dialog(String message,String title){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage(message);
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setTitle(title);
+
+        alertDialogBuilder.setPositiveButton("yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        startActivity(new Intent(NewProductEntry.this, Home.class));
+                    }
+                });
+
+        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+    }
+
+    public void dialog1(String message){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage(message);
+        alertDialogBuilder.setPositiveButton("yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        finish();
+                    }
+                });
+
+        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
 
         private void goToHome() {
             Intent intent = new Intent(NewProductEntry.this, Home.class);
