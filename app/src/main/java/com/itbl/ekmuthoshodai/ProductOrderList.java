@@ -7,12 +7,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.core.content.res.ResourcesCompat;
+
+import com.itbl.ekmuthoshodai.entities.ProductOrder;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -116,25 +117,12 @@ public class ProductOrderList extends Activity {
         @Override
         protected void onPostExecute(String result) {
             pd.dismiss();
+
             productOrderAdapter = new ProductOrderAdapter(ProductOrderList.this,
                     R.layout.row_product_order,productOrders);
 
             listView.setAdapter(productOrderAdapter);
 
-             /*  btnImDtl.setOnClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                    Intent intent = new Intent(ProductOrderList.this, BookExtraInfo.class);
-                    intent.putExtra("bid",String.valueOf(bookHistories.get(position).getBook_id()) );
-                    intent.putExtra("bname", bookHistories.get(position).getBook_name());
-                    intent.putExtra("bauthor", bookHistories.get(position).getBook_author());
-                    intent.putExtra("country", bookHistories.get(position).getBook_country());
-                    intent.putExtra("language", bookHistories.get(position).getBook_language());
-                    intent.putExtra("status", bookHistories.get(position).getReturn_status());
-                    startActivity(intent);
-                }
-            }); */
         }
     }
 

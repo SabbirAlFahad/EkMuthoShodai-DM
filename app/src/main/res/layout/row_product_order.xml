@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:padding="5dp"
+    android:background="@color/colorWhite"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:background="@color/colorSilver2"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20"
+            android:orientation="horizontal"
+            android:background="@color/colorWhite">
+
+            <TextView
+                android:id="@+id/imCID"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorRed"
+                android:gravity="center|start"/>
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:text=" CLIENT"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorRed"
+                android:gravity="center|start"/>
+
+
+            <TextView
+                android:id="@+id/imClient"
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="48"/>
+
+            <Button
+                android:id="@+id/btnImDtl"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="23"
+                android:textColor="@color/colorRed"
+                android:gravity="center"
+                android:textSize="10sp"
+                android:text="Details"
+                android:background="@drawable/button_enabled"
+                android:fontFamily="@font/amaranth"
+                android:elevation="4dp"
+                android:padding="8dp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

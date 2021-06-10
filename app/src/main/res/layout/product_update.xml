@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="7dp"
+    android:background="@color/colorSilver2"
+    android:gravity="center|top">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorSilver2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20"
+            android:orientation="horizontal"
+            android:background="@color/colorWhite">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="25"
+                android:text="  ITEM NAME"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
+                android:gravity="center"/>
+
+
+            <TextView
+                android:id="@+id/imNameE"
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="70"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="30"
+                android:layout_height="match_parent"
+                android:text="  STOCK"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
+                android:gravity="center|start"/>
+
+            <EditText
+                android:id="@+id/imStockE"
+                android:layout_width="0dp"
+                android:layout_weight="70"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:background="@drawable/edit_text_bg"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="5dp" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="30"
+                android:layout_height="match_parent"
+                android:text="  RATE"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
+                android:gravity="center|start"/>
+
+            <EditText
+                android:id="@+id/imRateE"
+                android:layout_width="0dp"
+                android:layout_weight="70"
+                android:gravity="center"
+                android:textColor="@color/colorBlack"
+                android:textSize="10sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/edit_text_bg"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30"
+                android:gravity="center|start"
+                android:text="  QUANTITY"
+                android:textColor="@color/colorBlack"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/imQuantityE"
+                android:layout_width="0dp"
+                android:layout_weight="70"
+                android:textColor="@color/colorBlack"
+                android:textSize="8sp"
+                android:gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/edit_text_bg"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="30"
+                android:layout_height="match_parent"
+                android:text="  RATE AMOUNT"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"
+                android:gravity="center|start"/>
+
+            <EditText
+                android:id="@+id/imAmountE"
+                android:layout_width="0dp"
+                android:layout_weight="70"
+                android:gravity="center"
+                android:textColor="@color/colorBlack"
+                android:textSize="10sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/edit_text_bg"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30"
+                android:gravity="center|start"
+                android:text="  DISCOUNT"
+                android:textColor="@color/colorBlack"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/imDiscountE"
+                android:layout_width="0dp"
+                android:layout_weight="70"
+                android:textColor="@color/colorBlack"
+                android:textSize="8sp"
+                android:gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/edit_text_bg"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
+
+
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="17"
+                android:layout_height="match_parent"
+                android:gravity="center"/>
+
+            <Button
+                android:id="@+id/btnIMUpdate"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="70"
+                android:textColor="@color/colorRed"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:text=" Update"
+                android:background="@drawable/button_enabled"
+                android:fontFamily="@font/amaranth"
+                android:elevation="6dp"
+                android:padding="4dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="13"
+                android:layout_height="match_parent"
+                android:gravity="center"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

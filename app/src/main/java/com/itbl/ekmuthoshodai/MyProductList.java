@@ -3,25 +3,23 @@ package com.itbl.ekmuthoshodai;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.core.content.res.ResourcesCompat;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.util.Log;
 
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.itbl.ekmuthoshodai.entities.MyProduct;
+
 import org.json.JSONArray;
 
 import org.json.JSONObject;
@@ -80,8 +78,8 @@ public class MyProductList extends Activity {
 
         @Override
         protected void onPreExecute(){
-            pd = ProgressDialog.show(MyProductList.this, " Processing",
-                    "Please wait...");
+            pd = ProgressDialog.show(MyProductList.this, "Data Processing",
+                    "Please wait a bit. . .");
         }
 
         @Override
@@ -137,22 +135,22 @@ public class MyProductList extends Activity {
 
             listView.setAdapter(myProductAdapter);
 
-            /* btnIMSave.setOnClickListener(new AdapterView.OnItemClickListener() {
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(MyProductList.this, BookExtraInfo.class);
-                    intent.putExtra("bid",String.valueOf(bookHistories.get(position).getBook_id()));
-                    intent.putExtra("bname", bookHistories.get(position).getBook_name());
-                    intent.putExtra("bauthor", bookHistories.get(position).getBook_author());
-                    intent.putExtra("country", bookHistories.get(position).getBook_country());
-                    intent.putExtra("language", bookHistories.get(position).getBook_language());
-                    intent.putExtra("status", bookHistories.get(position).getReturn_status());
+                    Intent intent = new Intent(MyProductList.this, ProductUpdate.class);
+                    intent.putExtra(" ", myProducts.get(position).getImName());
+                    intent.putExtra(" ", myProducts.get(position).getImStock());
+                    intent.putExtra(" ", myProducts.get(position).getImRate());
+                    intent.putExtra(" ", myProducts.get(position).getImQuantity());
+                    intent.putExtra(" ", myProducts.get(position).getImAmount());
+                    intent.putExtra(" ", myProducts.get(position).getImDiscount());
                     startActivity(intent);
                 }
-            }); */
+            });
+
         }
     }
-
 
     public void dialog(String message){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);

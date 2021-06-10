@@ -45,6 +45,7 @@ public class NewProductEntry extends Activity {
 
     TextView txtPromo;
     EditText createdByV, iTAmountV, cDateV, iRateV, iAmountV, iQuantityV, iDisV, iStockV;
+
     Button btnSaveEntry, btn_back;
 
     Spinner iNameSpin, iNameSpin2;
@@ -58,8 +59,9 @@ public class NewProductEntry extends Activity {
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private static final String TAG = "NewProductEntry";
 
-    String getItemId="";
-    String getItemId2="";
+    String getItemId =" ";
+    String getItemId2 =" ";
+
     String postiNameSpin2, postcreatedByV, postcDateV, postiDisV, postiStockV ,
             postiTAmountV, postiRateV, postiAmountV, postiQuantityV;
 
