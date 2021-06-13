@@ -27,7 +27,7 @@ public class ProductUpdate extends AppCompatActivity {
 
     TextView imNameE;
     EditText imStockE, imRateE, imQuantityE, imAmountE, imDiscountE;
-    Button btnIMUpdate;
+    Button btnIMUpdate, btn_back;
 
     String pstimNameE, pstimStockE, pstimRateE, pstimQuantityE, pstimAmountE, pstimDiscountE;
 
@@ -43,6 +43,7 @@ public class ProductUpdate extends AppCompatActivity {
         imAmountE = findViewById(R.id.imAmountE);
         imDiscountE = findViewById(R.id.imDiscountE);
         btnIMUpdate = findViewById(R.id.btnIMUpdate);
+        btn_back = findViewById(R.id.btn_back);
 
         Bundle bundle = getIntent().getExtras();
         String imNameEt = bundle.getString(" ","");
@@ -77,6 +78,19 @@ public class ProductUpdate extends AppCompatActivity {
             }
 
         });
+
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToBack();
+            }
+        });
+    }
+
+    private void goToBack() {
+        Intent intent = new Intent(ProductUpdate.this,MyProductList.class);
+        startActivity(intent);
     }
 
     private class ProUpdate extends AsyncTask<Void,Void,String> {

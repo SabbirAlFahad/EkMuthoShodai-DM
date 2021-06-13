@@ -1,17 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="7dp"
     android:background="@color/colorSilver2"
-    android:gravity="center|top">
+    android:gravity="center">
+
+    <LinearLayout
+        android:id="@+id/hdr"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:orientation="horizontal"
+        android:background="@color/colorBlack"
+        android:gravity="center_vertical"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:elevation="6dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginRight="8dp"
+            android:elevation="6dp"
+            android:drawableLeft="@drawable/back_arrow_svg"
+            android:background="?android:selectableItemBackground" />
+
+        <TextView
+            android:id="@+id/txtPromo"
+            android:layout_width="0dp"
+            android:layout_weight="90"
+            android:layout_height="match_parent"
+            android:gravity="center|start"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/colorWhite"
+            android:text="Order List"
+            android:fontFamily="@font/amaranth"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="0dp"
+        android:layout_weight="50"
         android:orientation="vertical"
         android:layout_marginTop="20dp"
+        android:padding="7dp"
         android:background="@color/colorSilver2">
 
         <LinearLayout
@@ -29,7 +71,7 @@
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorBlack"
-                android:gravity="center"/>
+                android:gravity="center|start"/>
 
 
             <TextView
@@ -258,6 +300,16 @@
 
 
         </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="43"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorSilver2">
 
     </LinearLayout>
 

@@ -32,17 +32,15 @@
                 android:textColor="@color/colorRed"
                 android:gravity="center|start"/>
 
-
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="20"
+                android:layout_weight="70"
                 android:text=" CLIENT"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorRed"
                 android:gravity="center|start"/>
-
 
             <TextView
                 android:id="@+id/imClient"
@@ -51,24 +49,8 @@
                 android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="48"/>
+                android:layout_weight="30"/>
 
-            <Button
-                android:id="@+id/btnImDtl"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="23"
-                android:textColor="@color/colorRed"
-                android:gravity="center"
-                android:textSize="10sp"
-                android:text="Details"
-                android:background="@drawable/button_enabled"
-                android:fontFamily="@font/amaranth"
-                android:elevation="4dp"
-                android:padding="8dp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
 
         </LinearLayout>
 

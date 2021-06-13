@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 
 public class ProductOrderList extends Activity {
 
-    Button btn_back, btnImDtl;
+    Button btn_back;
     TextView txtPromo;
     String json_string;
     JSONObject jsonObject;
@@ -42,7 +43,6 @@ public class ProductOrderList extends Activity {
         btn_back = findViewById(R.id.btn_back);
         txtPromo = findViewById(R.id.txtPromo);
         listView = findViewById(R.id.list_mPOrder);
-        btnImDtl = findViewById(R.id.btnImDtl);
 
         txtPromo.setTypeface(ResourcesCompat.getFont(this, R.font.amaranth));
 
@@ -71,8 +71,8 @@ public class ProductOrderList extends Activity {
 
         @Override
         protected void onPreExecute(){
-            pd = ProgressDialog.show(ProductOrderList.this, " Processing",
-                    "Please wait...");
+            pd = ProgressDialog.show(ProductOrderList.this, " Data Processing",
+                    "Please wait a bit...");
         }
 
         @Override
@@ -97,8 +97,8 @@ public class ProductOrderList extends Activity {
                 while (count < jsonArray.length()) {
                     JSONObject JO = jsonArray.getJSONObject(count);
 
-                    imCID = Integer.valueOf(JO.getString("bookId"));
-                    imClient = JO.getString("bookName");
+                    imCID = Integer.valueOf(JO.getString(" "));
+                    imClient = JO.getString(" ");
 
                     ProductOrder productOrder = new ProductOrder(imCID, imClient);
 
@@ -117,15 +117,22 @@ public class ProductOrderList extends Activity {
         @Override
         protected void onPostExecute(String result) {
             pd.dismiss();
-
             productOrderAdapter = new ProductOrderAdapter(ProductOrderList.this,
                     R.layout.row_product_order,productOrders);
-
             listView.setAdapter(productOrderAdapter);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(ProductOrderList.this, ProductOrderExtra.class);
+
+                    startActivity(intent);
+
+                }
+            });
 
         }
     }
-
 
     private void goToHome() {
         Intent intent = new Intent(ProductOrderList.this,Home.class);

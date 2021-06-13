@@ -2,12 +2,12 @@ package com.itbl.ekmuthoshodai.entities;
 
 public class MyProduct {
 
-    private String imName;
-    private String imStock;
-    private String imRate;
-    private String imQuantity;
-    private String imAmount;
-    private String imDiscount;
+     String imName;
+     String imStock;
+     String imRate;
+     String imQuantity;
+     String imAmount;
+     String imDiscount;
 
     public MyProduct(String imName, String imStock,
                      String imRate, String imQuantity, String imAmount, String imDiscount) {

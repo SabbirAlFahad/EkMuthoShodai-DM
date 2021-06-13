@@ -84,7 +84,7 @@ public class MyProductList extends Activity {
 
         @Override
         protected String doInBackground(Void... params){
-            String result = "";
+            String result = " ";
 
             try {
                 int count = 0;
@@ -139,6 +139,7 @@ public class MyProductList extends Activity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(MyProductList.this, ProductUpdate.class);
+
                     intent.putExtra(" ", myProducts.get(position).getImName());
                     intent.putExtra(" ", myProducts.get(position).getImStock());
                     intent.putExtra(" ", myProducts.get(position).getImRate());
@@ -146,6 +147,7 @@ public class MyProductList extends Activity {
                     intent.putExtra(" ", myProducts.get(position).getImAmount());
                     intent.putExtra(" ", myProducts.get(position).getImDiscount());
                     startActivity(intent);
+
                 }
             });
 
