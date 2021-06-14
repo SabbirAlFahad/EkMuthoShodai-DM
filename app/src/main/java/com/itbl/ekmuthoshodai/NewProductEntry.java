@@ -22,8 +22,6 @@ import android.widget.TextView;
 
 import androidx.core.content.res.ResourcesCompat;
 
-import com.itbl.ekmuthoshodai.entities.NewProductData;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -35,25 +33,21 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 public class NewProductEntry extends Activity {
 
     TextView txtPromo;
-    EditText createdByV, iTAmountV, cDateV, iRateV, iAmountV, iQuantityV, iDisV, iStockV;
+    EditText iTAmountV, itmCode, cDateV, iRateV, iAmountV, iQuantityV, iDisV, iStockV;
 
     Button btnSaveEntry, btn_back;
 
-    Spinner iNameSpin, iNameSpin2;
+    Spinner iNameSpin, iNameSpin2, iDiscount;
 
     private ArrayList<String> getPId = new ArrayList<String>();
     private ArrayList<String> getCId = new ArrayList<String>();
+    private ArrayList<String> getDisID = new ArrayList<String>();
     private ArrayList<String> getPName = new ArrayList<String>();
     private ArrayList<String> getCName = new ArrayList<String>();
+    private ArrayList<String> getDisName = new ArrayList<String>();
 
     //calender
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -61,8 +55,9 @@ public class NewProductEntry extends Activity {
 
     String getItemId =" ";
     String getItemId2 =" ";
+    String getItemId3 =" ";
 
-    String postiNameSpin2, postcreatedByV, postcDateV, postiDisV, postiStockV ,
+    String postiNameSpin2, postcreatedByV, postitmCode, postiDisV, postiStockV ,
             postiTAmountV, postiRateV, postiAmountV, postiQuantityV;
 
 
@@ -77,13 +72,14 @@ public class NewProductEntry extends Activity {
         cDateV = findViewById(R.id.cDateV);
         iNameSpin = findViewById(R.id.iNameSpin);
         iNameSpin2 = findViewById(R.id.iNameSpin2);
-        createdByV = findViewById(R.id.createdByV);
+        iDiscount = findViewById(R.id.iDiscount);
         iTAmountV = findViewById(R.id.iTAmountV);
         iRateV = findViewById(R.id.iRateV);
         iAmountV = findViewById(R.id.iAmountV);
         iQuantityV = findViewById(R.id.iQuantityV);
         iDisV = findViewById(R.id.iDisV);
         iStockV = findViewById(R.id.iStockV);
+        itmCode = findViewById(R.id.itmCode);
 
         txtPromo.setTypeface(ResourcesCompat.getFont(this, R.font.amaranth));
 
@@ -124,6 +120,9 @@ public class NewProductEntry extends Activity {
             }
         });
 
+        DisProduct taskDis = new DisProduct(NewProductEntry.this);
+        taskDis.execute();
+
         NewProduct task = new NewProduct(NewProductEntry.this);
         task.execute();
 
@@ -131,17 +130,17 @@ public class NewProductEntry extends Activity {
             @Override
             public void onClick(View view) {
 
-                goToHome();
+                // goToHome();
 
                 postiNameSpin2=iNameSpin2.getSelectedItem().toString().trim();
-                postcDateV =cDateV.getText().toString().trim();
-                postcreatedByV= createdByV.getText().toString().trim();
+                postcreatedByV= iDiscount.getSelectedItem().toString().trim();
                 postiDisV=iDisV.getText().toString().trim();
                 postiStockV=iStockV.getText().toString().trim();
                 postiTAmountV=iTAmountV.getText().toString().trim();
                 postiRateV=iRateV.getText().toString().trim();
                 postiAmountV=iAmountV.getText().toString().trim();
                 postiQuantityV=iQuantityV.getText().toString().trim();
+                postitmCode=iQuantityV.getText().toString().trim();
 
                 NewEntry task = new NewEntry(NewProductEntry.this);
                 task.execute();
@@ -301,6 +300,77 @@ public class NewProductEntry extends Activity {
         }
     }
 
+    private class DisProduct extends AsyncTask<Void, Void, String> {
+
+        @SuppressWarnings("unused")
+        private Activity context;
+
+        @SuppressWarnings("unused")
+        ProgressDialog pd = null;
+
+        public DisProduct(Activity context) {
+            this.context = context;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            pd = ProgressDialog.show(NewProductEntry.this, "Data Processing",
+                    "Please wait...");
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String result = "";
+
+            try {
+                String response = CustomHttpClientGet.execute("http://192.168.22.253:8010/Discount");
+                result = response.toString();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                JSONArray jArray = new JSONArray(result.toString());
+                for (int i = 0; i < jArray.length(); i++) {
+                    JSONObject json_data = jArray.getJSONObject(i);
+
+                    getDisID.add(json_data.getString("disc_ID"));
+                    getDisName.add(json_data.getString("disc_DESC"));
+                }
+
+            } catch (Exception e) {
+                Log.e("log_tag", "Error in http connection!!" + e.toString());
+
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            pd.dismiss();
+            ArrayAdapter<String> spinItemPAdapter = new ArrayAdapter<String>(NewProductEntry.this,
+                    android.R.layout.simple_spinner_item, getDisName);
+
+            spinItemPAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            iDiscount.setAdapter(spinItemPAdapter);
+
+            iDiscount.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    getItemId3 = getDisID.get(position);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }
+    }
+
 
     private class NewEntry extends AsyncTask<Void,Void,String> {
 
@@ -334,15 +404,15 @@ public class NewProductEntry extends Activity {
 
                 JSONObject jsonParam = new JSONObject();
 
-                jsonParam.put("email", postiNameSpin2 );
-                jsonParam.put("password", postcDateV);
-                jsonParam.put("fname", postcreatedByV);
-                jsonParam.put("lname", postiDisV);
-                jsonParam.put("phone", postiStockV);
-                jsonParam.put("tdx", postiTAmountV);
-                jsonParam.put("image", postiRateV);
-                jsonParam.put("type", postiAmountV);
-                jsonParam.put("type", postiQuantityV);
+                jsonParam.put(" ", postiNameSpin2 );
+                jsonParam.put(" ", postcreatedByV);
+                jsonParam.put(" ", postiDisV);
+                jsonParam.put(" ", postiStockV);
+                jsonParam.put(" ", postiTAmountV);
+                jsonParam.put(" ", postiRateV);
+                jsonParam.put(" ", postiAmountV);
+                jsonParam.put(" ", itmCode);
+                jsonParam.put(" ", postiQuantityV);
 
                 Log.i("JSON", jsonParam.toString());
                 DataOutputStream os = new DataOutputStream(conn.getOutputStream());

@@ -111,9 +111,13 @@
                     android:layout_weight="60"
                     android:textColorHint="#3F51B5"
                     android:gravity="center|start"
+                    android:background="@drawable/spinner_bg"
+                    android:popupBackground="#00897B"
                     android:padding="5dp"
+                    android:elevation="1dp"
                     android:textColor="#3F51B5"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    />
 
             </LinearLayout>
 
@@ -146,7 +150,10 @@
                     android:layout_marginRight="15dp"
                     android:layout_weight="60"
                     android:gravity="center|start"
+                    android:background="@drawable/spinner_bg"
                     android:padding="5dp"
+                    android:elevation="1dp"
+                    android:popupBackground="#00897B"
                     android:textColor="#3F51B5"
                     android:textColorHint="#3F51B5"
                     android:textSize="16sp" />
@@ -206,24 +213,26 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="40"
-                    android:text=" Created By"
+                    android:text=" Discount Type"
                     android:textStyle="bold"
                     android:gravity="center|start"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
+                    android:elevation="3dp"
                     android:fontFamily="@font/bree_serif"
                     android:textColor="@color/colorBlack"/>
 
-                <EditText
-                    android:id="@+id/createdByV"
+                <Spinner
+                    android:id="@+id/iDiscount"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="60"
-                    android:hint=" Enter User Name"
+                    android:background="@drawable/spinner_bg"
                     android:textColorHint="@color/colorHint"
                     android:layout_marginRight="15dp"
                     android:gravity="center|start"
+                    android:popupBackground="#00897B"
                     android:textSize="16sp"
-                    android:background="@drawable/edit_text_bg"
+                    android:elevation="1dp"
                     android:textColor="@color/colorBlack"/>
 
             </LinearLayout>
@@ -242,10 +251,10 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="40"
-                    android:text=" Discount"
+                    android:text=" Discount Amount"
                     android:textStyle="bold"
                     android:gravity="center|start"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:elevation="3dp"
                     android:fontFamily="@font/bree_serif"
                     android:textColor="@color/colorBlack"/>
@@ -278,30 +287,58 @@
                 android:gravity="center">
 
                 <TextView
-                    android:id="@+id/iStock"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="40"
-                    android:text=" Stock"
-                    android:textStyle="bold"
-                    android:gravity="center|start"
-                    android:textSize="16sp"
-                    android:layout_marginLeft="5dp"
-                    android:elevation="3dp"
-                    android:fontFamily="@font/bree_serif"
-                    android:textColor="@color/colorBlack"/>
+                android:id="@+id/iStock"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:text=" Stock"
+                android:textStyle="bold"
+                android:gravity="center|start"
+                android:textSize="16sp"
+                android:layout_marginLeft="5dp"
+                android:elevation="3dp"
+                android:fontFamily="@font/bree_serif"
+                android:textColor="@color/colorBlack"/>
 
                 <EditText
                     android:id="@+id/iStockV"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="60"
+                    android:layout_weight="30"
                     android:paddingLeft="5dp"
                     android:hint=" Enter Stock"
                     android:textColorHint="@color/colorHint"
                     android:gravity="center|start"
                     android:layout_marginRight="20dp"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
+                    android:background="@drawable/edit_text_bg"
+                    android:fontFamily="@font/bree_serif"
+                    android:textColor="@color/colorBlack"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="20"
+                    android:text=" Item Code"
+                    android:textStyle="bold"
+                    android:gravity="center|start"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="2dp"
+                    android:elevation="3dp"
+                    android:fontFamily="@font/bree_serif"
+                    android:textColor="@color/colorBlack"/>
+
+                <EditText
+                    android:id="@+id/itmCode"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="30"
+                    android:paddingLeft="5dp"
+                    android:hint=" Enter Stock"
+                    android:textColorHint="@color/colorHint"
+                    android:gravity="center|start"
+                    android:layout_marginRight="20dp"
+                    android:textSize="14sp"
                     android:background="@drawable/edit_text_bg"
                     android:fontFamily="@font/bree_serif"
                     android:textColor="@color/colorBlack"/>
@@ -363,7 +400,7 @@
                     android:textColorHint="@color/colorHint"
                     android:layout_marginRight="15dp"
                     android:gravity="center|start"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:background="@drawable/edit_text_bg"
                     android:textColor="@color/colorBlack"/>
 
@@ -386,8 +423,8 @@
                     android:text=" Quantity"
                     android:textStyle="bold"
                     android:gravity="center|start"
-                    android:textSize="16sp"
-                    android:elevation="3dp"
+                    android:textSize="14sp"
+                    android:elevation="6dp"
                     android:fontFamily="@font/bree_serif"
                     android:textColor="@color/colorBlack"/>
 
@@ -428,7 +465,7 @@
                     android:textColorHint="@color/colorHint"
                     android:layout_marginRight="15dp"
                     android:gravity="center|start"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:background="@drawable/edit_text_bg"
                     android:textColor="@color/colorBlack"/>
 
@@ -451,7 +488,6 @@
                     android:gravity="center"
                     android:textSize="16sp"
                     android:text="Save Product"
-                    android:onClick="PostData"
                     android:textStyle="bold"
                     android:background="@drawable/button_enabled"
                     android:fontFamily="@font/bree_serif"
