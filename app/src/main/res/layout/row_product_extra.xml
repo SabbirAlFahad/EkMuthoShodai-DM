@@ -34,9 +34,9 @@
 
 
         <TextView
-            android:id="@+id/imNameE"
+            android:id="@+id/imNameU"
             android:textColor="@color/colorBlack"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -69,7 +69,7 @@
             android:layout_width="0dp"
             android:layout_weight="70"
             android:gravity="center"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:background="@drawable/edit_text_bg"
             android:layout_height="match_parent"
             android:layout_marginRight="20dp"
@@ -106,7 +106,7 @@
             android:layout_width="0dp"
             android:layout_weight="70"
             android:textColor="@color/colorBlack"
-            android:textSize="8sp"
+            android:textSize="16sp"
             android:gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="20dp"
@@ -136,12 +136,12 @@
             android:gravity="center|start"/>
 
         <EditText
-            android:id="@+id/imAmountE"
+            android:id="@+id/imAmountU"
             android:layout_width="0dp"
             android:layout_weight="70"
             android:gravity="center"
             android:textColor="@color/colorBlack"
-            android:textSize="10sp"
+            android:textSize="16sp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/edit_text_bg"
@@ -171,11 +171,11 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/imDiscountE"
+            android:id="@+id/imDiscountU"
             android:layout_width="0dp"
             android:layout_weight="70"
             android:textColor="@color/colorBlack"
-            android:textSize="8sp"
+            android:textSize="16sp"
             android:gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="20dp"
@@ -206,7 +206,7 @@
             android:gravity="center"/>
 
         <Button
-            android:id="@+id/btnIMUpdate"
+            android:id="@+id/btnItmUpdate"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="60"

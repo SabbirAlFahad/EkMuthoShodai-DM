@@ -31,13 +31,10 @@ public class MyProductList extends Activity {
     Button btn_back;
     TextView txtPromo;
 
-    String json_string;
-    JSONObject jsonObject;
-    JSONArray jsonArray;
     MyProductAdapter myProductAdapter;
     ListView listView;
-    MyProduct myProduct;
-    Button btnIMSave;
+
+    String itmId ="" ;
 
     ArrayList<MyProduct> myProducts=new ArrayList<>();
 
@@ -50,7 +47,7 @@ public class MyProductList extends Activity {
 
         btn_back = findViewById(R.id.btn_back);
         txtPromo = findViewById(R.id.txtPromo);
-        btnIMSave = findViewById(R.id.btnIMSave);
+
         txtPromo.setTypeface(ResourcesCompat.getFont(this, R.font.amaranth));
 
         Display task = new Display(MyProductList.this);
@@ -62,8 +59,7 @@ public class MyProductList extends Activity {
                 goToHome();
             }
         });
-
-    }
+ }
 
     public class Display extends AsyncTask<Void, Void, String>{
         @SuppressWarnings("unused")
@@ -84,34 +80,35 @@ public class MyProductList extends Activity {
 
         @Override
         protected String doInBackground(Void... params){
-            String result = " ";
+            String result = "";
 
             try {
                 int count = 0;
                 String imName, imStock, imRate, imQuantity, imAmount, imDiscount;
 
                 try {
-                    String response = CustomHttpClientGet.execute(" ");
+                    String response = CustomHttpClientGet.execute("http://192.168.22.253:8010/item_show");
 
                     result = response.toString();
-                    //result=result.replaceAll("[^a-zA-Z0-9]+","");
 
                 } catch (Exception e) {
                     Log.e("log_tag", "Error in http connection!!" + e.toString());
 
                 }
+
                 JSONArray jsonArray = new JSONArray(result.toString());
 
                 while (count < jsonArray.length()) {
-
                     JSONObject JO = jsonArray.getJSONObject(count);
 
-                    imName = JO.getString("bookName");
-                    imStock = JO.getString("bookName");
-                    imRate = JO.getString("bookWriter");
-                    imQuantity = JO.getString("bookCountry");
-                    imAmount = JO.getString("bookLanguage");
-                    imDiscount = JO.getString("status");
+                    itmId = JO.getString("item_");
+
+                    imName = JO.getString("item_DESCR");
+                    imStock = JO.getString("stock_QTY");
+                    imRate = JO.getString("amt");
+                    imQuantity = JO.getString("amt_QTY");
+                    imAmount = JO.getString("amt_RATE");
+                    imDiscount = JO.getString("disc_AMOUNT");
 
                     MyProduct myProduct = new MyProduct(imName, imStock, imRate, imQuantity,
                             imAmount, imDiscount);
@@ -140,12 +137,14 @@ public class MyProductList extends Activity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(MyProductList.this, ProductUpdate.class);
 
-                    intent.putExtra(" ", myProducts.get(position).getImName());
-                    intent.putExtra(" ", myProducts.get(position).getImStock());
-                    intent.putExtra(" ", myProducts.get(position).getImRate());
-                    intent.putExtra(" ", myProducts.get(position).getImQuantity());
-                    intent.putExtra(" ", myProducts.get(position).getImAmount());
-                    intent.putExtra(" ", myProducts.get(position).getImDiscount());
+
+                    intent.putExtra("item_DESCR", myProducts.get(position).getImName());
+                    intent.putExtra("stock_QTY", myProducts.get(position).getImStock());
+                    intent.putExtra("amt", myProducts.get(position).getImRate());
+                    intent.putExtra("amt_QTY", myProducts.get(position).getImQuantity());
+                    intent.putExtra("amt_RATE", myProducts.get(position).getImAmount());
+                    intent.putExtra("disc_AMOUNT", myProducts.get(position).getImDiscount());
+
                     startActivity(intent);
 
                 }

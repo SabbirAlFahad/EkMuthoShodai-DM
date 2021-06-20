@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,34 +33,25 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class NewProductEntry extends Activity {
 
-    TextView txtPromo;
-    EditText iTAmountV, itmCode, cDateV, iRateV, iAmountV, iQuantityV, iDisV, iStockV;
+    TextView iNameSpin, txtPromo;
+    EditText iTAmountV, iRateV, iAmountV, iQuantityV, iDisV, iStockV;
 
     Button btnSaveEntry, btn_back;
 
-    Spinner iNameSpin, iNameSpin2, iDiscount;
+    Spinner iDiscount;
 
-    private ArrayList<String> getPId = new ArrayList<String>();
-    private ArrayList<String> getCId = new ArrayList<String>();
     private ArrayList<String> getDisID = new ArrayList<String>();
-    private ArrayList<String> getPName = new ArrayList<String>();
-    private ArrayList<String> getCName = new ArrayList<String>();
     private ArrayList<String> getDisName = new ArrayList<String>();
 
-    //calender
-    private DatePickerDialog.OnDateSetListener mDateSetListener;
-    private static final String TAG = "NewProductEntry";
-
-    String getItemId =" ";
-    String getItemId2 =" ";
+    String getItemId  =" ";
     String getItemId3 =" ";
 
-    String postiNameSpin2, postcreatedByV, postitmCode, postiDisV, postiStockV ,
-            postiTAmountV, postiRateV, postiAmountV, postiQuantityV;
-
+    String postiNameSpin1, postcreatedByV, postiDisV, postiStockV ,
+           postiTAmountV, postiRateV, postiAmountV, postiQuantityV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +61,8 @@ public class NewProductEntry extends Activity {
         txtPromo = findViewById(R.id.txtPromo);
         btnSaveEntry = findViewById(R.id.btnSaveEntry);
         btn_back = findViewById(R.id.btn_back);
-        cDateV = findViewById(R.id.cDateV);
+
         iNameSpin = findViewById(R.id.iNameSpin);
-        iNameSpin2 = findViewById(R.id.iNameSpin2);
         iDiscount = findViewById(R.id.iDiscount);
         iTAmountV = findViewById(R.id.iTAmountV);
         iRateV = findViewById(R.id.iRateV);
@@ -79,39 +70,8 @@ public class NewProductEntry extends Activity {
         iQuantityV = findViewById(R.id.iQuantityV);
         iDisV = findViewById(R.id.iDisV);
         iStockV = findViewById(R.id.iStockV);
-        itmCode = findViewById(R.id.itmCode);
 
         txtPromo.setTypeface(ResourcesCompat.getFont(this, R.font.amaranth));
-
-        //calender
-        cDateV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog dialog = new DatePickerDialog(
-                        NewProductEntry.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        mDateSetListener,
-                        year, month, day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
-
-        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                Log.d(TAG, "onDateSet: mm/dd/yyyy: " + month + "/" + day + "/" + year);
-
-                String date = month + "/" + day + "/" + year;
-                cDateV.setText(date);
-            }
-        };
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,16 +83,11 @@ public class NewProductEntry extends Activity {
         DisProduct taskDis = new DisProduct(NewProductEntry.this);
         taskDis.execute();
 
-        NewProduct task = new NewProduct(NewProductEntry.this);
-        task.execute();
-
         btnSaveEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                // goToHome();
-
-                postiNameSpin2=iNameSpin2.getSelectedItem().toString().trim();
+                postiNameSpin1=iNameSpin.getText().toString().trim();
                 postcreatedByV= iDiscount.getSelectedItem().toString().trim();
                 postiDisV=iDisV.getText().toString().trim();
                 postiStockV=iStockV.getText().toString().trim();
@@ -140,164 +95,12 @@ public class NewProductEntry extends Activity {
                 postiRateV=iRateV.getText().toString().trim();
                 postiAmountV=iAmountV.getText().toString().trim();
                 postiQuantityV=iQuantityV.getText().toString().trim();
-                postitmCode=iQuantityV.getText().toString().trim();
 
                 NewEntry task = new NewEntry(NewProductEntry.this);
                 task.execute();
 
             }
         });
-    }
-
-    private class NewProduct extends AsyncTask<Void, Void, String> {
-
-        @SuppressWarnings("unused")
-        private Activity context;
-
-        @SuppressWarnings("unused")
-        ProgressDialog pd = null;
-
-        public NewProduct(Activity context) {
-            this.context = context;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            pd = ProgressDialog.show(NewProductEntry.this, "Data Processing",
-                    "Please wait...");
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            String result = "";
-
-            try {
-                String response = CustomHttpClientGet.execute("http://192.168.22.253:8010/Parent_Item");
-                result = response.toString();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            try {
-                JSONArray jArray = new JSONArray(result.toString());
-                for (int i = 0; i < jArray.length(); i++) {
-                    JSONObject json_data = jArray.getJSONObject(i);
-
-                    getPId.add(json_data.getString("item_ID"));
-                    getPName.add(json_data.getString("item_DESCR"));
-
-                }
-
-            } catch (Exception e) {
-                Log.e("log_tag", "Error in http connection!!" + e.toString());
-
-            }
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            pd.dismiss();
-            ArrayAdapter<String> spinItemPAdapter = new ArrayAdapter<String>(NewProductEntry.this,
-                    android.R.layout.simple_spinner_item, getPName);
-
-            spinItemPAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-            iNameSpin.setAdapter(spinItemPAdapter);
-
-            iNameSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                    getItemId = getPId.get(position);
-                    CProduct task = new CProduct(NewProductEntry.this);
-                    task.execute();
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-        }
-    }
-
-    private class CProduct extends AsyncTask<Void, Void, String> {
-
-        @SuppressWarnings("unused")
-        private Activity context;
-
-        @SuppressWarnings("unused")
-        ProgressDialog pd = null;
-
-
-        public CProduct(Activity context) {
-            this.context = context;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            pd = ProgressDialog.show(NewProductEntry.this, "Data Processing",
-                    "Please wait a bit...");
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            String result = "";
-
-            try {
-                String response = CustomHttpClientGet.execute("http://192.168.22.253:8010/Child_Item/"+getItemId);
-                result = response.toString();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            try {
-                getCId.clear();
-                getCName.clear();
-                JSONArray jArray = new JSONArray(result.toString());
-                for (int i = 0; i < jArray.length(); i++) {
-                    JSONObject json_data = jArray.getJSONObject(i);
-
-                    getCId.add(json_data.getString("item_ID"));
-                    getCName.add(json_data.getString("item_DESCR"));
-
-                }
-
-            } catch (Exception e) {
-                Log.e("log_tag", "Error in http connection!!" + e.toString());
-
-            }
-
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            pd.dismiss();
-            ArrayAdapter<String> spinItemPAdapter = new ArrayAdapter<String>(NewProductEntry.this,
-                    android.R.layout.simple_spinner_item, getCName);
-
-            spinItemPAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-            iNameSpin2.setAdapter(spinItemPAdapter);
-            iNameSpin2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    getItemId2 = getCId.get(position);
-
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-        }
     }
 
     private class DisProduct extends AsyncTask<Void, Void, String> {
@@ -389,12 +192,15 @@ public class NewProductEntry extends Activity {
 
         @Override
         protected String doInBackground(Void... params) {
-            String result = "0" ;
+            List<Pair<String, String>> postps= new ArrayList();
+
+            String result = " ";
+
             BufferedReader reader = null;
             StringBuilder stringBuilder ;
 
             try {
-                URL url = new URL(" ");
+                URL url = new URL("http://192.168.22.253:8010/insert_item");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
@@ -404,15 +210,14 @@ public class NewProductEntry extends Activity {
 
                 JSONObject jsonParam = new JSONObject();
 
-                jsonParam.put(" ", postiNameSpin2 );
-                jsonParam.put(" ", postcreatedByV);
-                jsonParam.put(" ", postiDisV);
-                jsonParam.put(" ", postiStockV);
-                jsonParam.put(" ", postiTAmountV);
-                jsonParam.put(" ", postiRateV);
-                jsonParam.put(" ", postiAmountV);
-                jsonParam.put(" ", itmCode);
-                jsonParam.put(" ", postiQuantityV);
+                jsonParam.put("ITEM_ID", getItemId);
+                jsonParam.put("DISC_ID", getItemId3);
+                jsonParam.put("DISC_AMOUNT", postiDisV);
+                jsonParam.put("STOCK_QTY", postiStockV);
+                jsonParam.put("AMT", postiTAmountV);
+                jsonParam.put("AMT_RATE", postiRateV);
+                jsonParam.put("QTY", postiAmountV);
+                jsonParam.put("AMT_QTY", postiQuantityV);
 
                 Log.i("JSON", jsonParam.toString());
                 DataOutputStream os = new DataOutputStream(conn.getOutputStream());
@@ -440,6 +245,7 @@ public class NewProductEntry extends Activity {
                 e.printStackTrace();
             }
 
+
             return result;
         }
 
@@ -448,7 +254,6 @@ public class NewProductEntry extends Activity {
             pd.dismiss();
             int r= Integer.parseInt(result);
             if(r>0){
-
                 dialog("Message","Entered successful!!!");
 
             }else{
@@ -469,7 +274,7 @@ public class NewProductEntry extends Activity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
-                        startActivity(new Intent(NewProductEntry.this, Home.class));
+                        startActivity(new Intent(NewProductEntry.this, NewProductEntry.class));
                     }
                 });
 

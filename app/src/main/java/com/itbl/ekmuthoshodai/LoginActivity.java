@@ -1,7 +1,9 @@
 package com.itbl.ekmuthoshodai;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -37,7 +39,7 @@ public class LoginActivity extends Activity {
     Button btnLogin;
     CheckBox remember;
     Animation btnAnim;
-    public static String newuser1, newpass1;
+    public static String newUser, newPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +81,7 @@ public class LoginActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "Fill The Empty Field", Toast.LENGTH_LONG).show();
 
                 } else {
-                    Fetch task = new Fetch(LoginActivity.this);
+                 Login task = new Login(LoginActivity.this);
                     task.execute();
                 }
 
@@ -114,32 +116,39 @@ public class LoginActivity extends Activity {
 
     }
 
-    private class Fetch  extends AsyncTask<Void,Void,String> {
+    private void gotoHome() {
+            Intent intent = new Intent(LoginActivity.this, Home.class);
+            startActivity(intent);
+    }
 
+    private class Login extends AsyncTask<Void, Void, String> {
+
+        @SuppressWarnings("unused")
         private Activity context;
 
         @SuppressWarnings("unused")
         ProgressDialog pd=null;
 
-        public Fetch(Activity context) {
+
+        public Login(Activity context) {
             this.context = context;
+
         }
 
         @Override
         protected void onPreExecute() {
             pd = ProgressDialog.show(LoginActivity.this, "Login Processing",
                     "Please wait...");
+
         }
 
         @Override
         protected String doInBackground(Void... params) {
-
-            String result = "" ;
+            String result = "";
             BufferedReader reader = null;
-            StringBuilder stringBuilder ;
-
+            StringBuilder stringBuilder;
             try {
-                URL url = new URL("");
+                URL url = new URL("http://192.168.22.253:8010/Userlogin");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
@@ -148,11 +157,12 @@ public class LoginActivity extends Activity {
                 conn.setDoInput(true);
 
                 JSONObject jsonParam = new JSONObject();
-                jsonParam.put("id", LogUser.getText().toString().trim());
-                jsonParam.put("pass", LogPassword.getText().toString().trim());
+                jsonParam.put("UserId", LogUser.getText().toString().trim());
+                jsonParam.put("Password", LogPassword.getText().toString().trim());
 
                 Log.i("JSON", jsonParam.toString());
                 DataOutputStream os = new DataOutputStream(conn.getOutputStream());
+                //os.writeBytes(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
                 os.writeBytes(jsonParam.toString());
 
                 os.flush();
@@ -169,29 +179,67 @@ public class LoginActivity extends Activity {
                     stringBuilder.append(line + "\n");
                 }
                 result=stringBuilder.toString();
+                result="["+result+"]";
                 conn.disconnect();
-                } catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
             try {
+
+
                 JSONArray jArray = new JSONArray(result.toString());
                 for (int i = 0; i < jArray.length(); i++) {
-                    JSONObject json_data = jArray.getJSONObject(i);
-                    newuser1= json_data.getString("USERNAME");
-                    newpass1 = json_data.getString("PASSWORD");
+                    JSONObject json_data = jArray.getJSONObject(0);
+
+                    newUser = json_data.getString("userId");
+                    newPass = json_data.getString("password");
+
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 Log.e("log_tag", "Error in http connection!!" + e.toString());
+
             }
+
             return result;
         }
 
         @Override
         protected void onPostExecute(String result) {
             pd.dismiss();
-            startActivity(new Intent(LoginActivity.this,Home.class));
+            if(LogUser.getText().toString().trim().equals(newUser)){
+                if(LogPassword.getText().toString().trim().equals(newPass)){
+                    gotoHome();
+                }else {
+                    dialog("Wrong Password");
+                }
+            }else {
+                dialog("Wrong User Id");
+            }
         }
+
     }
+    public void dialog(String message){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage(message);
+        alertDialogBuilder.setPositiveButton("yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+
+                    }
+                });
+
+        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+    }
+
 }

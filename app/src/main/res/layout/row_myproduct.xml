@@ -9,14 +9,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="100dp"
         android:orientation="vertical"
         android:background="@color/colorSilver2">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="20"
+            android:layout_weight="25"
             android:orientation="horizontal"
             android:background="@color/colorWhite">
 
@@ -34,9 +34,10 @@
             <TextView
                 android:id="@+id/imName"
                 android:textColor="@color/colorBlack"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:gravity="center"
                 android:layout_width="0dp"
+                android:textStyle="bold"
                 android:layout_height="match_parent"
                 android:layout_weight="70"/>
 
@@ -45,166 +46,140 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="20"
+            android:layout_weight="35"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="30"
+                android:layout_weight="20"
                 android:layout_height="match_parent"
-                android:text="  STOCK"
+                android:text="STOCK"
                 android:textSize="12sp"
                 android:textStyle="bold"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:textColor="@color/colorBlack"
                 android:gravity="center|start"/>
 
-            <TextView
-                android:id="@+id/imStock"
-                android:layout_width="0dp"
-                android:layout_weight="70"
-                android:gravity="center"
-                android:textSize="12sp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="30dp"/>
-
-        </LinearLayout>
-
-       <Space
-           android:layout_width="match_parent"
-           android:layout_height="10dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="20"
-            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="25"
+                android:layout_weight="20"
                 android:layout_height="match_parent"
                 android:text="  RATE"
                 android:textSize="12sp"
                 android:textStyle="bold"
+                android:layout_marginRight="5dp"
                 android:textColor="@color/colorBlack"
                 android:gravity="center|start"/>
-
-            <TextView
-                android:id="@+id/imRate"
-                android:layout_width="0dp"
-                android:layout_weight="25"
-                android:gravity="center"
-                android:textColor="@color/colorBlack"
-                android:textSize="10sp"
-                android:background="@drawable/edit_text_bg"
-                android:layout_height="match_parent" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="20"
-                android:gravity="center"
-                android:text="Quantity"
+                android:gravity="center|start"
+                android:text="QUANTITY"
                 android:textColor="@color/colorBlack"
                 android:textSize="12sp"
+                android:layout_marginRight="5dp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/imQuantity"
-                android:layout_width="0dp"
-                android:layout_weight="25"
-                android:textColor="@color/colorBlack"
-                android:textSize="8sp"
-                android:gravity="center"
-                android:background="@drawable/edit_text_bg"
-                android:layout_height="match_parent" />
-
-        </LinearLayout>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="10dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="20"
-            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="25"
+                android:layout_weight="20"
                 android:layout_height="match_parent"
-                android:text="  RATE AMOUNT"
+                android:text="RATE AMOUNT"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorBlack"
                 android:gravity="center|start"/>
 
             <TextView
-                android:id="@+id/imAmount"
-                android:layout_width="0dp"
-                android:layout_weight="25"
-                android:gravity="center"
-                android:textColor="@color/colorBlack"
-                android:textSize="10sp"
-                android:background="@drawable/edit_text_bg"
-                android:layout_height="match_parent" />
-
-            <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="20"
-                android:gravity="center"
-                android:text="Discount"
+                android:gravity="center|start"
+                android:text="DISCOUNT"
                 android:textColor="@color/colorBlack"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/imDiscount"
-                android:layout_width="0dp"
-                android:layout_weight="25"
-                android:textColor="@color/colorBlack"
-                android:textSize="8sp"
-                android:gravity="center"
-                android:background="@drawable/edit_text_bg"
-                android:layout_height="match_parent" />
 
         </LinearLayout>
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
+            android:layout_height="5dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="20"
-            android:gravity="center"
+            android:layout_weight="30"
             android:orientation="horizontal">
 
+
             <TextView
+                android:id="@+id/imStock"
+                android:textStyle="bold"
                 android:layout_width="0dp"
-                android:layout_weight="70"
-                android:layout_height="match_parent"
-                android:gravity="center"/>
-
-            <Button
-                android:id="@+id/btnIMSave"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="30"
-                android:textColor="@color/colorRed"
+                android:layout_weight="20"
                 android:gravity="center"
-                android:textSize="10sp"
-                android:text="SAVE"
-                android:background="@drawable/button_enabled"
-                android:fontFamily="@font/amaranth"
-                android:elevation="4dp"
-                android:padding="8dp"
-                android:textStyle="bold"/>
+                android:textColor="@color/colorBG"
+                android:textSize="12sp"
+                android:background="@drawable/edit_text_bg"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"/>
 
+
+            <TextView
+                android:id="@+id/imRate"
+                android:layout_width="0dp"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:textColor="@color/colorBlack"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:background="@drawable/edit_text_bg"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/imQuantity"
+                android:layout_width="0dp"
+                android:layout_weight="20"
+                android:textColor="@color/colorBlack"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="@drawable/edit_text_bg"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/imAmount"
+                android:layout_width="0dp"
+                android:layout_weight="20"
+                android:gravity="center"
+                android:textColor="@color/colorBlack"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:background="@drawable/edit_text_bg"
+                android:layout_marginLeft="5dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/imDiscount"
+                android:layout_width="0dp"
+                android:layout_weight="20"
+                android:textColor="@color/colorBlack"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/edit_text_bg"
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 

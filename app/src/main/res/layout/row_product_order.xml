@@ -23,33 +23,38 @@
             android:background="@color/colorWhite">
 
             <TextView
-                android:id="@+id/imCID"
+                android:id="@+id/cID"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="8"
+                android:layout_weight="15"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorRed"
                 android:gravity="center|start"/>
 
             <TextView
+                android:id="@+id/cName"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="70"
-                android:text=" CLIENT"
+                android:layout_weight="60"
                 android:textSize="14sp"
+                android:layout_gravity="center|start"
                 android:textStyle="bold"
                 android:textColor="@color/colorRed"
                 android:gravity="center|start"/>
 
             <TextView
-                android:id="@+id/imClient"
-                android:textColor="@color/colorBlack"
-                android:textSize="14sp"
+                android:textColor="@color/colorRed"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 android:gravity="center"
+                android:background="@drawable/edit_text_bg"
+                android:text="See Details"
                 android:layout_width="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_height="match_parent"
-                android:layout_weight="30"/>
+                android:layout_weight="25"/>
 
 
         </LinearLayout>

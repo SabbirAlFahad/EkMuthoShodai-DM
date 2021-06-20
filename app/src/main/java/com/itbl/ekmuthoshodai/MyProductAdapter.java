@@ -16,11 +16,12 @@ public class MyProductAdapter extends ArrayAdapter<MyProduct> {
 
     private List<MyProduct> list;
 
-    private LayoutInflater inflator;
+    private LayoutInflater inflater;
+
     public MyProductAdapter(Activity context, int row_layout, List<MyProduct> list) {
         super(context, R.layout.row_myproduct, list);
         this.list = list;
-        inflator = context.getLayoutInflater();
+        inflater = context.getLayoutInflater();
     }
 
     @Override
@@ -29,7 +30,7 @@ public class MyProductAdapter extends ArrayAdapter<MyProduct> {
         MyProductHolder myProductHolder;
 
         if(convertView == null){
-            convertView= inflator.inflate(R.layout.row_myproduct,null);
+            convertView= inflater.inflate(R.layout.row_myproduct,null);
             myProductHolder = new MyProductHolder();
 
             myProductHolder.imName = convertView.findViewById(R.id.imName);
@@ -52,7 +53,7 @@ public class MyProductAdapter extends ArrayAdapter<MyProduct> {
             myProductHolder = (MyProductHolder) convertView.getTag();
         }
 
-        myProductHolder.imName.setText((list.get(position).getImName()));
+        myProductHolder.imName.setText(list.get(position).getImName());
         myProductHolder.imStock.setText(list.get(position).getImStock());
         myProductHolder.imRate.setText(list.get(position).getImRate());
         myProductHolder.imQuantity.setText(list.get(position).getImQuantity());

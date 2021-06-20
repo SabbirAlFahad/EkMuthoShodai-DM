@@ -46,7 +46,6 @@ public class ProductOrderExtra extends Activity {
        Display task = new Display(ProductOrderExtra.this);
        task.execute();
 
-
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -75,11 +74,11 @@ public class ProductOrderExtra extends Activity {
 
         @Override
         protected String doInBackground(Void... params){
-            String result = " ";
+            String result = "";
 
             try {
                 int count = 0;
-                String imName, imStatus, imQuantity, imRAmount, imDiscount;
+                String odrNo, odrQuantity, odrRate, odrAmount, odrStatus, oderDate;
 
                 try {
                     String response = CustomHttpClientGet.execute(" ");
@@ -96,14 +95,15 @@ public class ProductOrderExtra extends Activity {
 
                     JSONObject JO = jsonArray.getJSONObject(count);
 
-                    imName = JO.getString(" ");
-                    imStatus = JO.getString(" ");
-                    imQuantity = JO.getString(" ");
-                    imRAmount = JO.getString(" ");
-                    imDiscount = JO.getString(" ");
+                    odrNo = JO.getString(" ");
+                    odrQuantity = JO.getString(" ");
+                    odrRate = JO.getString(" ");
+                    odrAmount = JO.getString(" ");
+                    odrStatus = JO.getString(" ");
+                    oderDate = JO.getString(" ");
 
-                    ProductOrderExt productOrderExt = new ProductOrderExt(imName, imStatus, imQuantity,
-                            imRAmount, imDiscount);
+                    ProductOrderExt productOrderExt = new ProductOrderExt(odrNo ,odrQuantity, odrRate, odrAmount,
+                            odrStatus, oderDate);
 
                     productOrderExts.add(productOrderExt);
                     count++;
@@ -120,7 +120,7 @@ public class ProductOrderExtra extends Activity {
         @Override
         protected void onPostExecute(String result) {
             pd.dismiss();
-            productOrderExtraAdapter = new ProductOrderExtraAdapter(ProductOrderExtra.this, R.layout.row_product_extra,productOrderExts);
+            productOrderExtraAdapter = new ProductOrderExtraAdapter(ProductOrderExtra.this, R.layout.row_product_order_extra,productOrderExts);
             listView.setAdapter(productOrderExtraAdapter);
 
         }

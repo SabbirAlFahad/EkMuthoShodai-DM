@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.itbl.ekmuthoshodai.entities.MyProduct;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -29,7 +31,7 @@ public class ProductUpdate extends AppCompatActivity {
     EditText imStockE, imRateE, imQuantityE, imAmountE, imDiscountE;
     Button btnIMUpdate, btn_back;
 
-    String pstimNameE, pstimStockE, pstimRateE, pstimQuantityE, pstimAmountE, pstimDiscountE;
+    String pstimStockE, pstimRateE, pstimQuantityE, pstimAmountE, pstimDiscountE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,31 +41,30 @@ public class ProductUpdate extends AppCompatActivity {
         imNameE = findViewById(R.id.imNameE);
         imStockE = findViewById(R.id.imStockE);
         imRateE = findViewById(R.id.imRateE);
-        imQuantityE = findViewById(R.id.imQuantityE);
+        imQuantityE = findViewById(R.id.imQuantityU);
         imAmountE = findViewById(R.id.imAmountE);
         imDiscountE = findViewById(R.id.imDiscountE);
         btnIMUpdate = findViewById(R.id.btnIMUpdate);
         btn_back = findViewById(R.id.btn_back);
 
         Bundle bundle = getIntent().getExtras();
-        String imNameEt = bundle.getString(" ","");
+        String imNameEt = bundle.getString("item_DESCR","");
         imNameE.setText(imNameEt);
-        String imStockEt = bundle.getString(" ","");
+        String imStockEt = bundle.getString("stock_QTY","");
         imStockE.setText(imStockEt);
-        String imRateEt = bundle.getString(" ","");
+        String imRateEt = bundle.getString("amt","");
         imRateE.setText(imRateEt);
-        String imQuantityEt = bundle.getString(" ","");
+        String imQuantityEt = bundle.getString("amt_QTY","");
         imQuantityE.setText(imQuantityEt);
-        String imAmountEt = bundle.getString(" ","");
+        String imAmountEt = bundle.getString("amt_RATE","");
         imAmountE.setText(imAmountEt);
-        String imDiscountEt = bundle.getString(" ","");
+        String imDiscountEt = bundle.getString("disc_AMOUNT","");
         imDiscountE.setText(imDiscountEt);
 
         btnIMUpdate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
 
-                pstimNameE =imNameE.getText().toString().trim();
                 pstimStockE= imStockE.getText().toString().trim();
                 pstimRateE=imRateE.getText().toString().trim();
                 pstimQuantityE=imQuantityE.getText().toString().trim();
@@ -74,11 +75,9 @@ public class ProductUpdate extends AppCompatActivity {
                 task.execute();
 
                 goToMyList();
-
             }
 
         });
-
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,12 +109,12 @@ public class ProductUpdate extends AppCompatActivity {
 
         @Override
         protected String doInBackground(Void... params) {
-            String result = "0" ;
+            String result = "" ;
             BufferedReader reader = null;
             StringBuilder stringBuilder ;
 
             try {
-                URL url = new URL(" "); //JSON Link
+                URL url = new URL("");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
@@ -125,12 +124,11 @@ public class ProductUpdate extends AppCompatActivity {
 
                 JSONObject jsonParam = new JSONObject();
 
-                jsonParam.put(" ", pstimNameE);
-                jsonParam.put(" ", pstimStockE);
-                jsonParam.put(" ", pstimRateE);
-                jsonParam.put(" ", pstimQuantityE);
-                jsonParam.put(" ", pstimAmountE);
-                jsonParam.put(" ", pstimDiscountE);
+                jsonParam.put("stock_QTY", pstimStockE);
+                jsonParam.put("amt", pstimRateE);
+                jsonParam.put("amt_QTY", pstimQuantityE);
+                jsonParam.put("amt_RATE", pstimAmountE);
+                jsonParam.put("disc_AMOUNT", pstimDiscountE);
 
                 Log.i("JSON", jsonParam.toString());
                 DataOutputStream os = new DataOutputStream(conn.getOutputStream());

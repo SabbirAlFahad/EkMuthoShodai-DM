@@ -81,7 +81,7 @@ public class ProductOrderList extends Activity {
 
             try {
                 int count = 0;
-                Integer imCID;
+                String imCID;
                 String imClient;
 
                 try {
@@ -97,7 +97,7 @@ public class ProductOrderList extends Activity {
                 while (count < jsonArray.length()) {
                     JSONObject JO = jsonArray.getJSONObject(count);
 
-                    imCID = Integer.valueOf(JO.getString(" "));
+                    imCID = JO.getString(" ");
                     imClient = JO.getString(" ");
 
                     ProductOrder productOrder = new ProductOrder(imCID, imClient);
@@ -125,7 +125,6 @@ public class ProductOrderList extends Activity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(ProductOrderList.this, ProductOrderExtra.class);
-
                     startActivity(intent);
 
                 }

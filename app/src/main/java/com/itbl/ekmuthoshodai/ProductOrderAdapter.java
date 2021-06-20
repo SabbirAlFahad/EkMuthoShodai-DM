@@ -31,12 +31,12 @@ public class ProductOrderAdapter extends ArrayAdapter<ProductOrder> {
             convertView= inflator.inflate(R.layout.row_product_order,null);
             productOrderHolder = new ProductOrderAdapter.ProductOrderHolder();
 
-            productOrderHolder.imCID = convertView.findViewById(R.id.imCID);
-            productOrderHolder.imClient = convertView.findViewById(R.id.imClient);
+            productOrderHolder.imCID = convertView.findViewById(R.id.cID);
+            productOrderHolder.imClient = convertView.findViewById(R.id.cName);
 
             convertView.setTag(productOrderHolder);
-            convertView.setTag(R.id.imCID, productOrderHolder.imCID);
-            convertView.setTag(R.id.imClient, productOrderHolder.imClient);
+            convertView.setTag(R.id.cID, productOrderHolder.imCID);
+            convertView.setTag(R.id.cName, productOrderHolder.imClient);
         }
         else{
             productOrderHolder = (ProductOrderAdapter.ProductOrderHolder) convertView.getTag();
@@ -50,6 +50,7 @@ public class ProductOrderAdapter extends ArrayAdapter<ProductOrder> {
     }
 
     static class ProductOrderHolder{
+
         protected static TextView imCID;
         protected static TextView imClient;
 

@@ -137,13 +137,9 @@ public class Home extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void goToLogin() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
 
     private void goToNewEntry() {
-        Intent intent = new Intent(this, NewProductEntry.class);
+        Intent intent = new Intent(this, NewProductEntrySelect.class);
         startActivity(intent);
     }
 
