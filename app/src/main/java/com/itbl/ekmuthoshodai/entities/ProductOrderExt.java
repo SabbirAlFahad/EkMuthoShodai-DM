@@ -2,57 +2,67 @@ package com.itbl.ekmuthoshodai.entities;
 
 public class ProductOrderExt {
 
-   String imName;
-   String imStatus;
-   String imQuantity;
-   String imRAmount;
-   String imDiscount;
+   String odrNo;
+   String odrQuantity;
+   String odrRate;
+   String odrAmount;
+   String odrStatus;
+   String oderDate;
 
-    public ProductOrderExt(String imName, String imStatus, String imQuantity, String imRAmount, String imDiscount) {
-        this.imName = imName;
-        this.imStatus = imStatus;
-        this.imQuantity = imQuantity;
-        this.imRAmount = imRAmount;
-        this.imDiscount = imDiscount;
+    public ProductOrderExt(String odrNo, String odrQuantity, String odrRate, String odrAmount, String odrStatus, String oderDate) {
+        this.odrNo = odrNo;
+        this.odrQuantity = odrQuantity;
+        this.odrRate = odrRate;
+        this.odrAmount = odrAmount;
+        this.odrStatus = odrStatus;
+        this.oderDate = oderDate;
     }
 
-    public String getImName() {
-        return imName;
+    public String getOdrNo() {
+        return odrNo;
     }
 
-    public void setImName(String imName) {
-        this.imName = imName;
+    public void setOdrNo(String odrNo) {
+        this.odrNo = odrNo;
     }
 
-    public String getImStatus() {
-        return imStatus;
+    public String getOdrQuantity() {
+        return odrQuantity;
     }
 
-    public void setImStatus(String imStatus) {
-        this.imStatus = imStatus;
+    public void setOdrQuantity(String odrQuantity) {
+        this.odrQuantity = odrQuantity;
     }
 
-    public String getImQuantity() {
-        return imQuantity;
+    public String getOdrRate() {
+        return odrRate;
     }
 
-    public void setImQuantity(String imQuantity) {
-        this.imQuantity = imQuantity;
+    public void setOdrRate(String odrRate) {
+        this.odrRate = odrRate;
     }
 
-    public String getImRAmount() {
-        return imRAmount;
+    public String getOdrAmount() {
+        return odrAmount;
     }
 
-    public void setImRAmount(String imRAmount) {
-        this.imRAmount = imRAmount;
+    public void setOdrAmount(String odrAmount) {
+        this.odrAmount = odrAmount;
     }
 
-    public String getImDiscount() {
-        return imDiscount;
+    public String getOdrStatus() {
+        return odrStatus;
     }
 
-    public void setImDiscount(String imDiscount) {
-        this.imDiscount = imDiscount;
+    public void setOdrStatus(String odrStatus) {
+        this.odrStatus = odrStatus;
+    }
+
+    public String getOderDate() {
+        return oderDate;
+    }
+
+    public void setOderDate(String oderDate) {
+        this.oderDate = oderDate;
     }
 }

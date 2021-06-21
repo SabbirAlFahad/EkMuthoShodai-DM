@@ -34,8 +34,6 @@ public class MyProductList extends Activity {
     MyProductAdapter myProductAdapter;
     ListView listView;
 
-    String itmId ="" ;
-
     ArrayList<MyProduct> myProducts=new ArrayList<>();
 
     @Override
@@ -84,7 +82,7 @@ public class MyProductList extends Activity {
 
             try {
                 int count = 0;
-                String imName, imStock, imRate, imQuantity, imAmount, imDiscount;
+                String itmId, imName, imStock, imRate, imQuantity, imAmount, imDiscount;
 
                 try {
                     String response = CustomHttpClientGet.execute("http://192.168.22.253:8010/item_show");
@@ -101,8 +99,7 @@ public class MyProductList extends Activity {
                 while (count < jsonArray.length()) {
                     JSONObject JO = jsonArray.getJSONObject(count);
 
-                    itmId = JO.getString("item_");
-
+                    itmId = JO.getString("item_ID_RT");
                     imName = JO.getString("item_DESCR");
                     imStock = JO.getString("stock_QTY");
                     imRate = JO.getString("amt");
@@ -110,7 +107,7 @@ public class MyProductList extends Activity {
                     imAmount = JO.getString("amt_RATE");
                     imDiscount = JO.getString("disc_AMOUNT");
 
-                    MyProduct myProduct = new MyProduct(imName, imStock, imRate, imQuantity,
+                    MyProduct myProduct = new MyProduct(itmId, imName, imStock, imRate, imQuantity,
                             imAmount, imDiscount);
 
                     myProducts.add(myProduct);
@@ -137,7 +134,8 @@ public class MyProductList extends Activity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(MyProductList.this, ProductUpdate.class);
 
-
+                    intent.putExtra("item_ID_RT", myProducts.get(position).getItmId());
+                    intent.putExtra("item_DESCR", myProducts.get(position).getImName());
                     intent.putExtra("item_DESCR", myProducts.get(position).getImName());
                     intent.putExtra("stock_QTY", myProducts.get(position).getImStock());
                     intent.putExtra("amt", myProducts.get(position).getImRate());

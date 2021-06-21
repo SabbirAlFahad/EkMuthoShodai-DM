@@ -139,7 +139,7 @@ public class Home extends AppCompatActivity {
 
 
     private void goToNewEntry() {
-        Intent intent = new Intent(this, NewProductEntrySelect.class);
+        Intent intent = new Intent(this, NewProductEntry.class);
         startActivity(intent);
     }
 

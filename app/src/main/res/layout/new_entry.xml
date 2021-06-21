@@ -111,12 +111,13 @@
                     android:layout_weight="60"
                     android:gravity="center|start"
                     android:padding="5dp"
-                    android:background="@drawable/edit_text_bg"
+                    android:background="@drawable/spinner_bg"
                     android:elevation="1dp"
-                    android:textColor="#3F51B5"
+                    android:textColor="@color/colorWhite"
                     android:textSize="16sp" />
 
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -401,6 +402,9 @@
 
             </LinearLayout>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -434,7 +438,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"
+            android:layout_weight="10"
             android:gravity="center">
 
         </LinearLayout>

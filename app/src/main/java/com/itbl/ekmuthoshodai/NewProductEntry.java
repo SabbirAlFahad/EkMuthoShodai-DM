@@ -2,12 +2,9 @@ package com.itbl.ekmuthoshodai;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +13,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -32,12 +28,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class NewProductEntry extends Activity {
 
-    TextView iNameSpin, txtPromo;
+    TextView  txtPromo, iNameSpin;
     EditText iTAmountV, iRateV, iAmountV, iQuantityV, iDisV, iStockV;
 
     Button btnSaveEntry, btn_back;
@@ -45,7 +40,9 @@ public class NewProductEntry extends Activity {
     Spinner iDiscount;
 
     private ArrayList<String> getDisID = new ArrayList<String>();
+    private ArrayList<String> getID = new ArrayList<String>();
     private ArrayList<String> getDisName = new ArrayList<String>();
+    private ArrayList<String> getName = new ArrayList<String>();
 
     String getItemId  =" ";
     String getItemId3 =" ";
@@ -73,12 +70,19 @@ public class NewProductEntry extends Activity {
 
         txtPromo.setTypeface(ResourcesCompat.getFont(this, R.font.amaranth));
 
+        Bundle bundle = getIntent().getExtras();
+        postiNameSpin1 = bundle.getString("item_ID_RT","");
+
+        String imNameEt = bundle.getString("item_DESCR","");
+        iNameSpin.setText(imNameEt);
+
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToHome();
             }
         });
+
 
         DisProduct taskDis = new DisProduct(NewProductEntry.this);
         taskDis.execute();
@@ -87,7 +91,6 @@ public class NewProductEntry extends Activity {
             @Override
             public void onClick(View view) {
 
-                postiNameSpin1=iNameSpin.getText().toString().trim();
                 postcreatedByV= iDiscount.getSelectedItem().toString().trim();
                 postiDisV=iDisV.getText().toString().trim();
                 postiStockV=iStockV.getText().toString().trim();
@@ -210,7 +213,7 @@ public class NewProductEntry extends Activity {
 
                 JSONObject jsonParam = new JSONObject();
 
-                jsonParam.put("ITEM_ID", getItemId);
+                jsonParam.put("ITEM_ID", postiNameSpin1);
                 jsonParam.put("DISC_ID", getItemId3);
                 jsonParam.put("DISC_AMOUNT", postiDisV);
                 jsonParam.put("STOCK_QTY", postiStockV);

@@ -31,7 +31,7 @@ public class ProductUpdate extends AppCompatActivity {
     EditText imStockE, imRateE, imQuantityE, imAmountE, imDiscountE;
     Button btnIMUpdate, btn_back;
 
-    String pstimStockE, pstimRateE, pstimQuantityE, pstimAmountE, pstimDiscountE;
+    String pstitmId ,pstimStockE, pstimRateE, pstimQuantityE, pstimAmountE, pstimDiscountE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,8 @@ public class ProductUpdate extends AppCompatActivity {
         btn_back = findViewById(R.id.btn_back);
 
         Bundle bundle = getIntent().getExtras();
+        pstitmId = bundle.getString("item_ID_RT","");
+
         String imNameEt = bundle.getString("item_DESCR","");
         imNameE.setText(imNameEt);
         String imStockEt = bundle.getString("stock_QTY","");
@@ -74,7 +76,6 @@ public class ProductUpdate extends AppCompatActivity {
                 ProUpdate task = new ProUpdate(ProductUpdate.this);
                 task.execute();
 
-                goToMyList();
             }
 
         });
@@ -114,7 +115,7 @@ public class ProductUpdate extends AppCompatActivity {
             StringBuilder stringBuilder ;
 
             try {
-                URL url = new URL("");
+                URL url = new URL("http://192.168.22.253:8010/update_item");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
@@ -124,6 +125,7 @@ public class ProductUpdate extends AppCompatActivity {
 
                 JSONObject jsonParam = new JSONObject();
 
+                jsonParam.put("item_ID_RT", pstitmId);
                 jsonParam.put("stock_QTY", pstimStockE);
                 jsonParam.put("amt", pstimRateE);
                 jsonParam.put("amt_QTY", pstimQuantityE);

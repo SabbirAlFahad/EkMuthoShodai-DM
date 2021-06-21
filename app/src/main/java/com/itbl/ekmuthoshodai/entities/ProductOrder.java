@@ -1,19 +1,19 @@
 package com.itbl.ekmuthoshodai.entities;
 
 public class ProductOrder {
-    private Integer imCID;
+    private String imCID;
     private String imClient;
 
-    public ProductOrder(Integer imCID, String imClient) {
+    public ProductOrder(String imCID, String imClient) {
         this.imCID = imCID;
         this.imClient = imClient;
     }
 
-    public Integer getImCID() {
+    public String getImCID() {
         return imCID;
     }
 
-    public void setImCID(Integer imCID) {
+    public void setImCID(String imCID) {
         this.imCID = imCID;
     }
 

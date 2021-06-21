@@ -8,10 +8,23 @@ public class MyProduct {
      String imQuantity;
      String imAmount;
      String imDiscount;
+     String itmId;
 
-    public MyProduct(String imName, String imStock,
+    public String getItmId() {
+        return itmId;
+    }
+
+    public void setItmId(String itmId) {
+        this.itmId = itmId;
+    }
+
+    public MyProduct() {
+    }
+
+    public MyProduct(String itmId, String imName, String imStock,
                      String imRate, String imQuantity, String imAmount, String imDiscount) {
 
+        this.itmId = itmId;
         this.imName = imName;
         this.imStock = imStock;
         this.imRate = imRate;
