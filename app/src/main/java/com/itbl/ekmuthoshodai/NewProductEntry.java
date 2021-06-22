@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,9 +14,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.res.ResourcesCompat;
 
@@ -32,19 +36,32 @@ import java.util.List;
 
 public class NewProductEntry extends Activity {
 
-    TextView  txtPromo, iNameSpin;
+    TextView  txtPromo, txt_remember;
     EditText iTAmountV, iRateV, iAmountV, iQuantityV, iDisV, iStockV;
-
+    CheckBox remember;
     Button btnSaveEntry, btn_back;
 
-    Spinner iDiscount;
+    Spinner  iNamePSpin,  iNameCSpin, iNameSSpin, iNameSCSpin, iDiscount;
+
+    private ArrayList<String> getPId = new ArrayList<String>();
+    private ArrayList<String> getCId = new ArrayList<String>();
+    private ArrayList<String> getSId = new ArrayList<String>();
+    private ArrayList<String> getSCId = new ArrayList<String>();
 
     private ArrayList<String> getDisID = new ArrayList<String>();
-    private ArrayList<String> getID = new ArrayList<String>();
+
+    private ArrayList<String> getPName = new ArrayList<String>();
+    private ArrayList<String> getCName = new ArrayList<String>();
+    private ArrayList<String> getSName = new ArrayList<String>();
+    private ArrayList<String> getSCName = new ArrayList<String>();
+
     private ArrayList<String> getDisName = new ArrayList<String>();
-    private ArrayList<String> getName = new ArrayList<String>();
 
     String getItemId  =" ";
+    String getItemId2 =" ";
+    String getItemId4 =" ";
+    String getItemId5 =" ";
+
     String getItemId3 =" ";
 
     String postiNameSpin1, postcreatedByV, postiDisV, postiStockV ,
@@ -59,7 +76,11 @@ public class NewProductEntry extends Activity {
         btnSaveEntry = findViewById(R.id.btnSaveEntry);
         btn_back = findViewById(R.id.btn_back);
 
-        iNameSpin = findViewById(R.id.iNameSpin);
+        iNamePSpin = findViewById(R.id.iNamePSpin);
+        iNameCSpin = findViewById(R.id.iNameCSpin);
+        iNameSSpin = findViewById(R.id.iNameSSpin);
+        iNameSCSpin = findViewById(R.id.iNameSCSpin);
+
         iDiscount = findViewById(R.id.iDiscount);
         iTAmountV = findViewById(R.id.iTAmountV);
         iRateV = findViewById(R.id.iRateV);
@@ -67,14 +88,10 @@ public class NewProductEntry extends Activity {
         iQuantityV = findViewById(R.id.iQuantityV);
         iDisV = findViewById(R.id.iDisV);
         iStockV = findViewById(R.id.iStockV);
+        remember=  findViewById(R.id.remember);
+        txt_remember=  findViewById(R.id.txt_remember);
 
         txtPromo.setTypeface(ResourcesCompat.getFont(this, R.font.amaranth));
-
-        Bundle bundle = getIntent().getExtras();
-        postiNameSpin1 = bundle.getString("item_ID_RT","");
-
-        String imNameEt = bundle.getString("item_DESCR","");
-        iNameSpin.setText(imNameEt);
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,14 +100,30 @@ public class NewProductEntry extends Activity {
             }
         });
 
+        NewProduct task = new NewProduct(NewProductEntry.this);
+        task.execute();
 
         DisProduct taskDis = new DisProduct(NewProductEntry.this);
         taskDis.execute();
+
+        remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+
+                if(compoundButton.isChecked()){
+                    Toast.makeText(NewProductEntry.this,"Confirmed",Toast.LENGTH_SHORT).show();
+                }else if(!compoundButton.isChecked()){
+                    Toast.makeText(NewProductEntry.this,"Please select check mark",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
 
         btnSaveEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                postiNameSpin1= iNameCSpin.getSelectedItem().toString().trim();
                 postcreatedByV= iDiscount.getSelectedItem().toString().trim();
                 postiDisV=iDisV.getText().toString().trim();
                 postiStockV=iStockV.getText().toString().trim();
@@ -104,6 +137,309 @@ public class NewProductEntry extends Activity {
 
             }
         });
+    }
+
+    private class NewProduct extends AsyncTask<Void, Void, String> {
+
+        @SuppressWarnings("unused")
+        private Activity context;
+
+        @SuppressWarnings("unused")
+        ProgressDialog pd = null;
+
+        public NewProduct(Activity context) {
+            this.context = context;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            pd = ProgressDialog.show(NewProductEntry.this, "Data Processing",
+                    "Please wait a bit...");
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String result = "";
+
+            try {
+                String response = CustomHttpClientGet.execute("http://192.168.22.253:8010/Item/");
+                result = response.toString();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                JSONArray jArray = new JSONArray(result.toString());
+                for (int i = 0; i < jArray.length(); i++) {
+                    JSONObject json_data = jArray.getJSONObject(i);
+
+                    getPId.add(json_data.getString("item_ID"));
+                    getPName.add(json_data.getString("item_DESCR"));
+
+                }
+
+            } catch (Exception e) {
+                Log.e("log_tag", "Error in http connection!!" + e.toString());
+
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            pd.dismiss();
+            ArrayAdapter<String> spinItemPAdapter = new ArrayAdapter<String>(NewProductEntry.this,
+                    android.R.layout.simple_spinner_item, getPName);
+
+            spinItemPAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            iNamePSpin.setAdapter(spinItemPAdapter);
+
+            iNamePSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    getItemId = getPId.get(position);
+
+                    CProduct task = new CProduct(NewProductEntry.this);
+                    task.execute();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }
+    }
+
+    private class CProduct extends AsyncTask<Void, Void, String> {
+
+        @SuppressWarnings("unused")
+        private Activity context;
+
+        @SuppressWarnings("unused")
+        ProgressDialog pd = null;
+
+
+        public CProduct(Activity context) {
+            this.context = context;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            pd = ProgressDialog.show(NewProductEntry.this, "Data Processing",
+                    "Please wait a bit...");
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String result = "";
+
+            try {
+                String response = CustomHttpClientGet.execute("http://192.168.22.253:8010/Item_lvl2/"+getItemId);
+                result = response.toString();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                getCId.clear();
+                getCName.clear();
+                JSONArray jArray = new JSONArray(result.toString());
+                for (int i = 0; i < jArray.length(); i++) {
+                    JSONObject json_data = jArray.getJSONObject(i);
+
+                    getCId.add(json_data.getString("item_ID"));
+                    getCName.add(json_data.getString("item_DESCR"));
+
+                }
+
+            } catch (Exception e) {
+                Log.e("log_tag", "Error in http connection!!" + e.toString());
+
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            pd.dismiss();
+            ArrayAdapter<String> spinItemPAdapter = new ArrayAdapter<String>(NewProductEntry.this,
+                    android.R.layout.simple_spinner_item, getCName);
+
+            spinItemPAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            iNameCSpin.setAdapter(spinItemPAdapter);
+
+            iNameCSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    getItemId2 = getCId.get(position);
+
+                    SProduct task = new SProduct(NewProductEntry.this);
+                    task.execute();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }
+    }
+
+    private class SProduct extends AsyncTask<Void, Void, String> {
+
+        @SuppressWarnings("unused")
+        private Activity context;
+
+        @SuppressWarnings("unused")
+        ProgressDialog pd = null;
+
+
+        public SProduct(Activity context) {
+            this.context = context;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            pd = ProgressDialog.show(NewProductEntry.this, "Data Processing",
+                    "Please wait a bit...");
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String result = "";
+
+            try {
+                String response = CustomHttpClientGet.execute("http://192.168.22.253:8010/Item_lvl3/"+getItemId2);
+                result = response.toString();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                getSId.clear();
+                getSName.clear();
+                JSONArray jArray = new JSONArray(result.toString());
+                for (int i = 0; i < jArray.length(); i++) {
+                    JSONObject json_data = jArray.getJSONObject(i);
+
+                    getSId.add(json_data.getString("item_ID"));
+                    getSName.add(json_data.getString("item_DESCR"));
+
+                }
+
+            } catch (Exception e) {
+                Log.e("log_tag", "Error in http connection!!" + e.toString());
+
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            pd.dismiss();
+            ArrayAdapter<String> spinItemPAdapter = new ArrayAdapter<String>(NewProductEntry.this,
+                    android.R.layout.simple_spinner_item, getSName);
+
+            spinItemPAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            iNameSSpin.setAdapter(spinItemPAdapter);
+
+            iNameSSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    getItemId4 = getSId.get(position);
+
+                    SCProduct task = new SCProduct(NewProductEntry.this);
+                    task.execute();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }
+    }
+
+
+    private class SCProduct extends AsyncTask<Void, Void, String> {
+
+        @SuppressWarnings("unused")
+        private Activity context;
+
+        @SuppressWarnings("unused")
+        ProgressDialog pd = null;
+
+        public SCProduct(Activity context) {
+            this.context = context;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            pd = ProgressDialog.show(NewProductEntry.this, "Data Processing",
+                    "Please wait a bit...");
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String result = "";
+
+            try {
+                String response = CustomHttpClientGet.execute("http://192.168.22.253:8010/Item_lvl4/"+getItemId4);
+                result = response.toString();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                getSCId.clear();
+                getSCName.clear();
+                JSONArray jArray = new JSONArray(result.toString());
+                for (int i = 0; i < jArray.length(); i++) {
+                    JSONObject json_data = jArray.getJSONObject(i);
+
+                    getSCId.add(json_data.getString("item_ID"));
+                    getSCName.add(json_data.getString("item_DESCR"));
+
+                }
+
+            } catch (Exception e) {
+                Log.e("log_tag", "Error in http connection!!" + e.toString());
+
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            pd.dismiss();
+            ArrayAdapter<String> spinItemPAdapter = new ArrayAdapter<String>(NewProductEntry.this,
+                    android.R.layout.simple_spinner_item, getSCName);
+
+            spinItemPAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            iNameSCSpin.setAdapter(spinItemPAdapter);
+
+            iNameSCSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    getItemId5 = getSCId.get(position);
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }
     }
 
     private class DisProduct extends AsyncTask<Void, Void, String> {
@@ -213,7 +549,7 @@ public class NewProductEntry extends Activity {
 
                 JSONObject jsonParam = new JSONObject();
 
-                jsonParam.put("ITEM_ID", postiNameSpin1);
+                jsonParam.put("ITEM_ID", getItemId2);
                 jsonParam.put("DISC_ID", getItemId3);
                 jsonParam.put("DISC_AMOUNT", postiDisV);
                 jsonParam.put("STOCK_QTY", postiStockV);
@@ -224,7 +560,7 @@ public class NewProductEntry extends Activity {
 
                 Log.i("JSON", jsonParam.toString());
                 DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-                //os.writeBytes(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
+
                 os.writeBytes(jsonParam.toString());
 
                 os.flush();
@@ -247,7 +583,6 @@ public class NewProductEntry extends Activity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
 
             return result;
         }
@@ -277,7 +612,7 @@ public class NewProductEntry extends Activity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
-                        startActivity(new Intent(NewProductEntry.this, NewProductEntry.class));
+                        startActivity(new Intent(NewProductEntry.this, Home.class));
                     }
                 });
 
@@ -315,7 +650,7 @@ public class NewProductEntry extends Activity {
         alertDialog.show();
     }
 
-        private void goToHome() {
+    private void goToHome() {
             Intent intent = new Intent(NewProductEntry.this, Home.class);
             startActivity(intent);
         }

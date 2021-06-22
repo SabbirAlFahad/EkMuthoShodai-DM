@@ -27,7 +27,7 @@
                 android:text="  ITEM NAME"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorBG"
                 android:gravity="center|start"/>
 
 
@@ -35,7 +35,7 @@
                 android:id="@+id/imName"
                 android:textColor="@color/colorBlack"
                 android:textSize="16sp"
-                android:gravity="center"
+                android:gravity="center|start"
                 android:layout_width="0dp"
                 android:textStyle="bold"
                 android:layout_height="match_parent"
