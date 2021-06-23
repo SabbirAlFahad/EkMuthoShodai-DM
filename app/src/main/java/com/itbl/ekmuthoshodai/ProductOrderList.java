@@ -25,15 +25,10 @@ public class ProductOrderList extends Activity {
 
     Button btn_back;
     TextView txtPromo;
-    String json_string;
-    JSONObject jsonObject;
-    JSONArray jsonArray;
     ProductOrderAdapter productOrderAdapter;
     ListView listView;
-    ProductOrder productOrder;
 
     ArrayList<ProductOrder> productOrders=new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +53,7 @@ public class ProductOrderList extends Activity {
 
     }
 
-    public class Display extends AsyncTask<Void, Void, String> {
+    public class Display extends AsyncTask<Void, Void, String>{
         @SuppressWarnings("unused")
         private Activity context;
 
@@ -71,8 +66,8 @@ public class ProductOrderList extends Activity {
 
         @Override
         protected void onPreExecute(){
-            pd = ProgressDialog.show(ProductOrderList.this, " Data Processing",
-                    "Please wait a bit...");
+            pd = ProgressDialog.show(ProductOrderList.this, "Data Processing",
+                    "Please wait a bit. . .");
         }
 
         @Override
@@ -81,26 +76,30 @@ public class ProductOrderList extends Activity {
 
             try {
                 int count = 0;
-                String imCID;
-                String imClient;
+                String odrId, odrName, odrQuantity, odrAmount, odrDate, odrStatus;
 
                 try {
-                    String response = CustomHttpClientGet.execute(" ");
+                    String response = CustomHttpClientGet.execute("http://192.168.22.253:8010/Order_show");
+
                     result = response.toString();
 
                 } catch (Exception e) {
                     Log.e("log_tag", "Error in http connection!!" + e.toString());
-
                 }
+
                 JSONArray jsonArray = new JSONArray(result.toString());
 
                 while (count < jsonArray.length()) {
                     JSONObject JO = jsonArray.getJSONObject(count);
 
-                    imCID = JO.getString(" ");
-                    imClient = JO.getString(" ");
+                    odrId = JO.getString("order_DTL_ID");
+                    odrName = JO.getString("item_DESCR");
+                    odrQuantity = JO.getString("qnty");
+                    odrAmount = JO.getString("rate");
+                    odrDate = JO.getString("date");
+                    odrStatus = JO.getString("status");
 
-                    ProductOrder productOrder = new ProductOrder(imCID, imClient);
+                    ProductOrder productOrder = new ProductOrder(odrId, odrName, odrQuantity, odrAmount, odrDate, odrStatus);
 
                     productOrders.add(productOrder);
                     count++;
@@ -108,7 +107,7 @@ public class ProductOrderList extends Activity {
             }
 
             catch (Exception e) {
-                Log.e("log_tag", "Error in http connection!!" + e.toString());
+                Log.e("log_tag", "Error in http connection !" + e.toString());
             }
 
             return result;
@@ -117,18 +116,9 @@ public class ProductOrderList extends Activity {
         @Override
         protected void onPostExecute(String result) {
             pd.dismiss();
-            productOrderAdapter = new ProductOrderAdapter(ProductOrderList.this,
-                    R.layout.row_product_order,productOrders);
+            productOrderAdapter = new ProductOrderAdapter(ProductOrderList.this, R.layout.row_myproduct,productOrders);
+
             listView.setAdapter(productOrderAdapter);
-
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(ProductOrderList.this, ProductOrderExtra.class);
-                    startActivity(intent);
-
-                }
-            });
 
         }
     }

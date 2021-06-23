@@ -134,7 +134,7 @@ public class ProductUpdate extends AppCompatActivity {
 
                 Log.i("JSON", jsonParam.toString());
                 DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-                //os.writeBytes(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
+
                 os.writeBytes(jsonParam.toString());
 
                 os.flush();
@@ -175,7 +175,6 @@ public class ProductUpdate extends AppCompatActivity {
             }
         }
     }
-
 
     public void dialog(String message,String title){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);

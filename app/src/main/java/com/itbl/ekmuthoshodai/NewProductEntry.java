@@ -333,7 +333,7 @@ public class NewProductEntry extends Activity {
 
             try {
                 getSId.add(" ");
-                getSName.add("  ---Select---  ");
+                getSName.add("    ---Select---    ");
 
                 JSONArray jArray = new JSONArray(result.toString());
                 for (int i = 0; i < jArray.length(); i++) {
@@ -380,7 +380,6 @@ public class NewProductEntry extends Activity {
             });
         }
     }
-
 
     private class SCProduct extends AsyncTask<Void, Void, String> {
 
@@ -527,7 +526,6 @@ public class NewProductEntry extends Activity {
             });
         }
     }
-
 
     private class NewEntry extends AsyncTask<Void,Void,String> {
 

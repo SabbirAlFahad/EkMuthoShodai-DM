@@ -1,27 +1,72 @@
 package com.itbl.ekmuthoshodai.entities;
 
 public class ProductOrder {
-    private String imCID;
-    private String imClient;
 
-    public ProductOrder(String imCID, String imClient) {
-        this.imCID = imCID;
-        this.imClient = imClient;
+    private String odrId;
+    private String odrName;
+    private String odrQuantity;
+    private String odrAmount;
+    private String odrDate;
+    private String odrStatus;
+
+    public ProductOrder() {
     }
 
-    public String getImCID() {
-        return imCID;
+    public ProductOrder(String odrId, String odrName, String odrQuantity, String odrAmount, String odrDate, String odrStatus) {
+        this.odrId = odrId;
+        this.odrName = odrName;
+        this.odrQuantity = odrQuantity;
+        this.odrAmount = odrAmount;
+        this.odrDate = odrDate;
+        this.odrStatus = odrStatus;
     }
 
-    public void setImCID(String imCID) {
-        this.imCID = imCID;
+    public String getOdrId() {
+        return odrId;
     }
 
-    public String getImClient() {
-        return imClient;
+    public void setOdrId(String odrId) {
+        this.odrId = odrId;
     }
 
-    public void setImClient(String imClient) {
-        this.imClient = imClient;
+    public String getOdrName() {
+        return odrName;
     }
+
+    public void setOdrName(String odrName) {
+        this.odrName = odrName;
+    }
+
+    public String getOdrQuantity() {
+        return odrQuantity;
+    }
+
+    public void setOdrQuantity(String odrQuantity) {
+        this.odrQuantity = odrQuantity;
+    }
+
+    public String getOdrAmount() {
+        return odrAmount;
+    }
+
+    public void setOdrAmount(String odrAmount) {
+        this.odrAmount = odrAmount;
+    }
+
+    public String getOdrDate() {
+        return odrDate;
+    }
+
+    public void setOdrDate(String odrDate) {
+        this.odrDate = odrDate;
+    }
+
+    public String getOdrStatus() {
+        return odrStatus;
+    }
+
+    public void setOdrStatus(String odrStatus) {
+        this.odrStatus = odrStatus;
+    }
+
 }

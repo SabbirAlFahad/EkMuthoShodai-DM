@@ -17,7 +17,7 @@ public class ProductOrderAdapter extends ArrayAdapter<ProductOrder> {
     private LayoutInflater inflator;
 
     public ProductOrderAdapter(Activity context, int row_layout, List<ProductOrder> list) {
-        super(context, R.layout.row_product_order, list);
+        super(context, R.layout.row_product_order_extra, list);
         this.list = list;
         inflator = context.getLayoutInflater();
     }
@@ -25,25 +25,40 @@ public class ProductOrderAdapter extends ArrayAdapter<ProductOrder> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ProductOrderAdapter.ProductOrderHolder productOrderHolder;
+        ProductOrderHolder productOrderHolder;
 
         if(convertView == null){
-            convertView= inflator.inflate(R.layout.row_product_order,null);
-            productOrderHolder = new ProductOrderAdapter.ProductOrderHolder();
+            convertView= inflator.inflate(R.layout.row_product_order_extra,null);
+            productOrderHolder = new ProductOrderHolder();
 
-            productOrderHolder.imCID = convertView.findViewById(R.id.cID);
-            productOrderHolder.imClient = convertView.findViewById(R.id.cName);
+            productOrderHolder.odrName = convertView.findViewById(R.id.odrName);
+            productOrderHolder.odrQuantity = convertView.findViewById(R.id.odrQuantity);
+            productOrderHolder.odrAmount = convertView.findViewById(R.id.odrAmount);
+            productOrderHolder.odrDate = convertView.findViewById(R.id.odrDate);
+            productOrderHolder.odrStatus = convertView.findViewById(R.id.odrStatus);
 
             convertView.setTag(productOrderHolder);
-            convertView.setTag(R.id.cID, productOrderHolder.imCID);
-            convertView.setTag(R.id.cName, productOrderHolder.imClient);
+            convertView.setTag(R.id.odrName, productOrderHolder.odrName);
+            convertView.setTag(R.id.odrQuantity, productOrderHolder.odrQuantity);
+            convertView.setTag(R.id.odrAmount, productOrderHolder.odrAmount);
+            convertView.setTag(R.id.odrDate, productOrderHolder.odrDate);
+            convertView.setTag(R.id.odrStatus, productOrderHolder.odrStatus);
         }
         else{
-            productOrderHolder = (ProductOrderAdapter.ProductOrderHolder) convertView.getTag();
+            productOrderHolder = (ProductOrderHolder) convertView.getTag();
         }
 
-        productOrderHolder.imCID.setText(String.valueOf(list.get(position).getImCID()));
-        productOrderHolder.imClient.setText(list.get(position).getImClient());
+        productOrderHolder.odrName.setText(list.get(position).getOdrName());
+        productOrderHolder.odrQuantity.setText(list.get(position).getOdrQuantity());
+        productOrderHolder.odrAmount.setText(list.get(position).getOdrAmount());
+        productOrderHolder.odrDate.setText(list.get(position).getOdrDate());
+        productOrderHolder.odrStatus.setText(list.get(position).getOdrStatus());
+
+        if(list.get(position).getOdrStatus().equals("1")){
+            productOrderHolder.odrStatus.setText("Delivered");
+        }else {
+            productOrderHolder.odrStatus.setText("Pending");
+        }
 
         return convertView;
 
@@ -51,8 +66,12 @@ public class ProductOrderAdapter extends ArrayAdapter<ProductOrder> {
 
     static class ProductOrderHolder{
 
-        protected static TextView imCID;
-        protected static TextView imClient;
+        protected static TextView odrName;
+        protected static TextView odrQuantity;
+        protected static TextView odrAmount;
+        protected static TextView odrDate;
+        protected static TextView odrStatus;
 
     }
+
 }

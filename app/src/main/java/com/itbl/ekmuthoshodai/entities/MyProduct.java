@@ -10,14 +10,6 @@ public class MyProduct {
      String imDiscount;
      String itmId;
 
-    public String getItmId() {
-        return itmId;
-    }
-
-    public void setItmId(String itmId) {
-        this.itmId = itmId;
-    }
-
     public MyProduct() {
     }
 
@@ -31,6 +23,15 @@ public class MyProduct {
         this.imQuantity = imQuantity;
         this.imAmount = imAmount;
         this.imDiscount = imDiscount;
+    }
+
+
+    public String getItmId() {
+        return itmId;
+    }
+
+    public void setItmId(String itmId) {
+        this.itmId = itmId;
     }
 
     public String getImName() {

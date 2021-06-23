@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="120dp"
     android:padding="7dp"
     android:background="@color/colorWhite"
     android:gravity="center">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/colorSilver2">
 
@@ -18,7 +18,7 @@
             android:layout_height="0dp"
             android:layout_weight="25"
             android:orientation="horizontal"
-            android:background="@color/colorWhite">
+            android:background="@color/colorPrimaryDark">
 
             <TextView
                 android:layout_width="0dp"
@@ -27,13 +27,13 @@
                 android:text="  ITEM NAME"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:textColor="@color/colorBG"
+                android:textColor="@color/colorWhite"
                 android:gravity="center|start"/>
 
 
             <TextView
                 android:id="@+id/imName"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorWhite"
                 android:textSize="16sp"
                 android:gravity="center|start"
                 android:layout_width="0dp"
@@ -58,7 +58,7 @@
                 android:textStyle="bold"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorPrimaryDark"
                 android:gravity="center|start"/>
 
 
@@ -70,7 +70,7 @@
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:layout_marginRight="5dp"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorPrimaryDark"
                 android:gravity="center|start"/>
 
             <TextView
@@ -78,8 +78,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="20"
                 android:gravity="center|start"
-                android:text="QUANTITY"
-                android:textColor="@color/colorBlack"
+                android:text="QUANTITY TYPE"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="12sp"
                 android:layout_marginRight="5dp"
                 android:textStyle="bold" />
@@ -92,7 +92,7 @@
                 android:text="RATE AMOUNT"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorPrimaryDark"
                 android:gravity="center|start"/>
 
             <TextView
@@ -101,7 +101,7 @@
                 android:layout_weight="20"
                 android:gravity="center|start"
                 android:text="DISCOUNT"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 
