@@ -63,6 +63,7 @@ public class NewProductEntry extends Activity {
     String getItemId5 =" ";
 
     String getItemId3 =" ";
+    String passItemId =" ";
 
     String postiNameSpin1, postcreatedByV, postiDisV, postiStockV ,
            postiTAmountV, postiRateV, postiAmountV, postiQuantityV;
@@ -171,6 +172,9 @@ public class NewProductEntry extends Activity {
 
             try {
                 JSONArray jArray = new JSONArray(result.toString());
+                getPId.add("");
+                getPName.add(" ---Select--- ");
+
                 for (int i = 0; i < jArray.length(); i++) {
                     JSONObject json_data = jArray.getJSONObject(i);
 
@@ -201,8 +205,11 @@ public class NewProductEntry extends Activity {
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     getItemId = getPId.get(position);
 
-                    CProduct task = new CProduct(NewProductEntry.this);
-                    task.execute();
+                    if (!getItemId.equals("")) {
+                        CProduct task = new CProduct(NewProductEntry.this);
+                        task.execute();
+
+                    }
                 }
 
                 @Override
@@ -245,8 +252,9 @@ public class NewProductEntry extends Activity {
             }
 
             try {
-                getCId.clear();
-                getCName.clear();
+                getCId.add("");
+                getCName.add("  ---Select---  ");
+
                 JSONArray jArray = new JSONArray(result.toString());
                 for (int i = 0; i < jArray.length(); i++) {
                     JSONObject json_data = jArray.getJSONObject(i);
@@ -278,8 +286,10 @@ public class NewProductEntry extends Activity {
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     getItemId2 = getCId.get(position);
 
-                    SProduct task = new SProduct(NewProductEntry.this);
-                    task.execute();
+                    if (!getItemId2.equals("")) {
+                        SProduct task = new SProduct(NewProductEntry.this);
+                        task.execute();
+                    }
                 }
 
                 @Override
@@ -322,8 +332,9 @@ public class NewProductEntry extends Activity {
             }
 
             try {
-                getSId.clear();
-                getSName.clear();
+                getSId.add(" ");
+                getSName.add("  ---Select---  ");
+
                 JSONArray jArray = new JSONArray(result.toString());
                 for (int i = 0; i < jArray.length(); i++) {
                     JSONObject json_data = jArray.getJSONObject(i);
@@ -355,8 +366,11 @@ public class NewProductEntry extends Activity {
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     getItemId4 = getSId.get(position);
 
-                    SCProduct task = new SCProduct(NewProductEntry.this);
-                    task.execute();
+                    if (!getItemId4.equals("")) {
+                        SCProduct task = new SCProduct(NewProductEntry.this);
+                        task.execute();
+                    }
+
                 }
 
                 @Override
@@ -399,8 +413,9 @@ public class NewProductEntry extends Activity {
             }
 
             try {
-                getSCId.clear();
-                getSCName.clear();
+                getSCId.add("");
+                getSCName.add(" ");
+
                 JSONArray jArray = new JSONArray(result.toString());
                 for (int i = 0; i < jArray.length(); i++) {
                     JSONObject json_data = jArray.getJSONObject(i);
@@ -549,7 +564,7 @@ public class NewProductEntry extends Activity {
 
                 JSONObject jsonParam = new JSONObject();
 
-                jsonParam.put("ITEM_ID", getItemId2);
+                //jsonParam.put("ITEM_ID", passItemId);
                 jsonParam.put("DISC_ID", getItemId3);
                 jsonParam.put("DISC_AMOUNT", postiDisV);
                 jsonParam.put("STOCK_QTY", postiStockV);
