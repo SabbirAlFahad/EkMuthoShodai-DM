@@ -96,17 +96,17 @@ public class LoginActivity extends Activity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
 
                 if(compoundButton.isChecked()){
-                    SharedPreferences loginPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
-                    SharedPreferences.Editor preferencesEditor = loginPreferences.edit();
-                    preferencesEditor.putString("remember", "true");
-                    preferencesEditor.apply();
+                    //SharedPreferences loginPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                    //SharedPreferences.Editor preferencesEditor = loginPreferences.edit();
+                    //preferencesEditor.putString("remember", "true");
+                    //preferencesEditor.apply();
                     Toast.makeText(LoginActivity.this,"Checked",Toast.LENGTH_SHORT).show();
 
                 }else if(!compoundButton.isChecked()){
-                    SharedPreferences loginPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
-                    SharedPreferences.Editor preferencesEditor = loginPreferences.edit();
-                    preferencesEditor.putString("remember", "false");
-                    preferencesEditor.apply();
+                    //SharedPreferences loginPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+                    //SharedPreferences.Editor preferencesEditor = loginPreferences.edit();
+                    //preferencesEditor.putString("remember", "false");
+                    //preferencesEditor.apply();
                     Toast.makeText(LoginActivity.this,"Unchecked",Toast.LENGTH_SHORT).show();
 
                 }
