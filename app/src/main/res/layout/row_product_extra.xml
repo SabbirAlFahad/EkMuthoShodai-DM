@@ -2,32 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="260dp"
-    android:background="@color/colorSilver2"
+    android:layout_height="120dp"
+    android:background="@color/colorBG"
     android:gravity="center">
 
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="50"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_marginTop="10dp"
     android:padding="5dp"
-    android:background="@color/colorSilver2">
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="15"
+        android:layout_weight="20"
         android:orientation="horizontal"
         android:background="@color/colorWhite">
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_weight="25"
+            android:layout_height="match_parent"
+            android:layout_weight="30"
             android:gravity="center|start"
-            android:text="  ITEM NAME"
+            android:text=" ITEM NAME"
             android:textColor="@color/colorBlack"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -37,10 +36,12 @@
             android:id="@+id/imNameU"
             android:textColor="@color/colorBlack"
             android:textSize="16sp"
-            android:gravity="center"
+            android:gravity="center|start"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="70"/>
+
+
 
     </LinearLayout>
 
@@ -51,12 +52,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="15"
+        android:layout_weight="25"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="30"
+            android:layout_weight="20"
             android:layout_height="match_parent"
             android:text="  STATUS"
             android:textSize="12sp"
@@ -67,46 +68,30 @@
         <EditText
             android:id="@+id/imStatus"
             android:layout_width="0dp"
-            android:layout_weight="70"
+            android:layout_weight="30"
             android:gravity="center"
-            android:textSize="16sp"
+            android:textColor="@color/colorRed"
+            android:textSize="14sp"
             android:background="@drawable/edit_text_bg"
             android:layout_height="match_parent"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="5dp" />
-
-    </LinearLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="3dp" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="3dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="15"
-        android:orientation="horizontal">
+            android:layout_marginRight="20dp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="30"
+            android:layout_weight="20"
             android:gravity="center|start"
-            android:text="  QUANTITY"
+            android:text="  DISCOUNT"
             android:textColor="@color/colorBlack"
             android:textSize="12sp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/imQuantityE"
+            android:id="@+id/imDiscountU"
             android:layout_width="0dp"
-            android:layout_weight="70"
-            android:textColor="@color/colorBlack"
-            android:textSize="16sp"
+            android:layout_weight="30"
+            android:textColor="@color/colorBG"
+            android:textSize="14sp"
             android:gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="20dp"
@@ -117,17 +102,42 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="3dp"/>
+        android:layout_height="3dp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="3dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="15"
+        android:layout_weight="25"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:gravity="center|start"
+            android:text="  QUANTITY"
+            android:textColor="@color/colorBlack"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/imQuantityE"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dp"
             android:layout_weight="30"
+            android:background="@drawable/edit_text_bg"
+            android:gravity="center"
+            android:textColor="@color/colorBG"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="20"
             android:layout_height="match_parent"
             android:text="  RATE AMOUNT"
             android:textSize="12sp"
@@ -138,10 +148,10 @@
         <EditText
             android:id="@+id/imAmountU"
             android:layout_width="0dp"
-            android:layout_weight="70"
+            android:layout_weight="30"
             android:gravity="center"
-            android:textColor="@color/colorBlack"
-            android:textSize="16sp"
+            android:textColor="@color/colorBG"
+            android:textSize="14sp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/edit_text_bg"
@@ -153,83 +163,6 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"/>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="15"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="30"
-            android:gravity="center|start"
-            android:text="  DISCOUNT"
-            android:textColor="@color/colorBlack"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/imDiscountU"
-            android:layout_width="0dp"
-            android:layout_weight="70"
-            android:textColor="@color/colorBlack"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/edit_text_bg"
-            android:layout_height="match_parent" />
-
-
-    </LinearLayout>
-
-
-
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="3dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="15"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="23"
-            android:layout_height="match_parent"
-            android:gravity="center"/>
-
-        <Button
-            android:id="@+id/btnItmUpdate"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="60"
-            android:textColor="@color/colorRed"
-            android:gravity="center"
-            android:textSize="14sp"
-            android:text=" Update"
-            android:background="@drawable/button_enabled"
-            android:fontFamily="@font/amaranth"
-            android:elevation="6dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:padding="4dp"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="17"
-            android:layout_height="match_parent"
-            android:gravity="center"/>
-
-
-    </LinearLayout>
 
     </LinearLayout>
 

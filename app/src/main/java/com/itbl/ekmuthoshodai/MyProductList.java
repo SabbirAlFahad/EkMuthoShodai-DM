@@ -136,7 +136,6 @@ public class MyProductList extends Activity {
 
                     intent.putExtra("item_ID_RT", myProducts.get(position).getItmId());
                     intent.putExtra("item_DESCR", myProducts.get(position).getImName());
-                    intent.putExtra("item_DESCR", myProducts.get(position).getImName());
                     intent.putExtra("stock_QTY", myProducts.get(position).getImStock());
                     intent.putExtra("amt", myProducts.get(position).getImRate());
                     intent.putExtra("amt_QTY", myProducts.get(position).getImQuantity());
@@ -151,25 +150,6 @@ public class MyProductList extends Activity {
         }
     }
 
-    public void dialog(String message){
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage(message);
-        alertDialogBuilder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-
-                    }
-                });
-
-        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
 
     private void goToHome() {
         Intent intent = new Intent(MyProductList.this,Home.class);
