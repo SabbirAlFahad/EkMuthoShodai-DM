@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBG"
+    android:background="@color/colorWhite"
     android:gravity="center">
 
     <LinearLayout
@@ -53,15 +53,15 @@
         android:layout_weight="50"
         android:orientation="vertical"
         android:layout_marginTop="20dp"
-        android:padding="5dp"
-        android:background="@color/colorBG">
+        android:padding="10dp"
+        android:background="@color/colorGG">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="20"
             android:orientation="horizontal"
-            android:background="@color/colorBG">
+            android:background="@color/colorWhite">
 
             <TextView
                 android:layout_width="0dp"
@@ -70,13 +70,13 @@
                 android:text="  ITEM NAME"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorGG"
                 android:gravity="center|start"/>
 
 
             <TextView
                 android:id="@+id/imNameE"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorGG"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:gravity="center"
@@ -113,7 +113,7 @@
                 android:gravity="center"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="@color/colorBG"
+                android:textColor="@color/colorGG"
                 android:background="@drawable/edit_text_bg"
                 android:layout_height="match_parent"
                 android:layout_marginRight="20dp"
@@ -146,7 +146,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="70"
                 android:gravity="center"
-                android:textColor="@color/colorBG"
+                android:textColor="@color/colorGG"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginLeft="5dp"
@@ -181,7 +181,7 @@
                 android:id="@+id/imQuantityU"
                 android:layout_width="0dp"
                 android:layout_weight="70"
-                android:textColor="@color/colorBG"
+                android:textColor="@color/colorGG"
                 android:textSize="16sp"
                 android:gravity="center"
                 android:textStyle="bold"
@@ -217,7 +217,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="70"
                 android:gravity="center"
-                android:textColor="@color/colorBG"
+                android:textColor="@color/colorGG"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginLeft="5dp"
@@ -252,7 +252,7 @@
                 android:id="@+id/imDiscountE"
                 android:layout_width="0dp"
                 android:layout_weight="70"
-                android:textColor="@color/colorBG"
+                android:textColor="@color/colorGG"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:gravity="center"
@@ -280,7 +280,7 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="17"
+                android:layout_weight="28"
                 android:layout_height="match_parent"
                 android:gravity="center"/>
 
@@ -288,7 +288,7 @@
                 android:id="@+id/btnIMUpdate"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="70"
+                android:layout_weight="62"
                 android:textColor="@color/colorRed"
                 android:gravity="center"
                 android:textSize="14sp"
@@ -303,7 +303,7 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="13"
+                android:layout_weight="5"
                 android:layout_height="match_parent"
                 android:gravity="center"/>
 
@@ -318,7 +318,7 @@
         android:layout_weight="43"
         android:orientation="vertical"
         android:layout_marginTop="20dp"
-        android:background="@color/colorBG">
+        android:background="@color/colorWhite">
 
     </LinearLayout>
 

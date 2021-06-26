@@ -15,6 +15,12 @@
         <menu>
             <group android:checkableBehavior="single">
 
+
+                <item
+                    android:id="@+id/nav_subs"
+                    android:icon="@drawable/ic_subs_svg"
+                    android:title="Monthly Subscription" />
+
                 <item
                     android:id="@+id/nav_cPass"
                     android:icon="@drawable/password_svg"
@@ -49,6 +55,7 @@
                 android:id="@+id/nav_order"
                 android:icon="@drawable/order_svg"
                 android:title="Orders" />
+
         </menu>
     </item>
 

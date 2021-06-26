@@ -36,6 +36,7 @@
         <activity android:name=".ProductOrderList" />
         <activity android:name=".ProductUpdate" />
         <activity android:name=".OrderStatusUpdate" />
+        <activity android:name=".MonthlySubs" />
 
         <meta-data
             android:name="preloaded_fonts"

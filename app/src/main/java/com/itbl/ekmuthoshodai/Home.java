@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +32,7 @@ public class Home extends AppCompatActivity {
     Button btnMenu;
     TextView txtMenu;
     SharedPrefManager sharedPrefManager;
+    Animation topAnim;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +42,9 @@ public class Home extends AppCompatActivity {
         btnMenu = findViewById(R.id.btnMenu);
         txtMenu = findViewById(R.id.textTitle);
         TextView textTitle = findViewById(R.id.textTitle);
+        topAnim = AnimationUtils.loadAnimation(this,R.anim.top_animation);
 
         sharedPrefManager = new SharedPrefManager(getApplicationContext());
-
 
         //Notify user API higher
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
@@ -100,6 +103,11 @@ public class Home extends AppCompatActivity {
             return true;
         });
 
+        navigationView.getMenu().findItem(R.id.nav_subs).setOnMenuItemClickListener(menuItem -> {
+            goToSubs();
+            return true;
+        });
+
         navigationView.getMenu().findItem(R.id.nav_myProduct).setOnMenuItemClickListener(menuItem -> {
             goToMyProduct();
             return true;
@@ -125,22 +133,31 @@ public class Home extends AppCompatActivity {
     private void goToProductOrder() {
         Intent intent = new Intent(this, ProductOrderList.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim);
+    }
+
+    private void goToSubs() {
+        Intent intent = new Intent(this, MonthlySubs.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim);
     }
 
     private void goToMyProduct() {
         Intent intent = new Intent(this, MyProductList.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim);
     }
 
     private void goToChangePassword() {
         Intent intent = new Intent(this, ChangePassword.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim);
     }
-
 
     private void goToNewEntry() {
         Intent intent = new Intent(this, NewProductEntry.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim);
     }
 
 }

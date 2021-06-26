@@ -63,7 +63,6 @@ public class NewProductEntry extends Activity {
     String getItemId5 =" ";
 
     String getItemId3 =" ";
-    String passItemId =" ";
 
     String postiNameSpin1, postcreatedByV, postiDisV, postiStockV ,
            postiTAmountV, postiRateV, postiAmountV, postiQuantityV;
@@ -413,7 +412,7 @@ public class NewProductEntry extends Activity {
 
             try {
                 getSCId.add("");
-                getSCName.add(" ");
+                getSCName.add("    ---Select---    ");
 
                 JSONArray jArray = new JSONArray(result.toString());
                 for (int i = 0; i < jArray.length(); i++) {
@@ -626,6 +625,7 @@ public class NewProductEntry extends Activity {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
                         startActivity(new Intent(NewProductEntry.this, Home.class));
+                        overridePendingTransition(R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim);
                     }
                 });
 
@@ -666,6 +666,7 @@ public class NewProductEntry extends Activity {
     private void goToHome() {
             Intent intent = new Intent(NewProductEntry.this, Home.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim);
         }
 
 }

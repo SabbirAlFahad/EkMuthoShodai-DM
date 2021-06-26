@@ -91,6 +91,7 @@ public class ProductUpdate extends AppCompatActivity {
     private void goToBack() {
         Intent intent = new Intent(ProductUpdate.this, MyProductList.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim);
     }
 
     private class ProUpdate extends AsyncTask<Void,Void,String> {
@@ -187,6 +188,7 @@ public class ProductUpdate extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
                         startActivity(new Intent(ProductUpdate.this, Home.class));
+                        overridePendingTransition(R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim);
                     }
                 });
 

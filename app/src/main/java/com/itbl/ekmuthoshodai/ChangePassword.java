@@ -166,6 +166,7 @@ public class ChangePassword extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
                         startActivity(new Intent(ChangePassword.this, LoginActivity.class));
+                        overridePendingTransition(R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim);
                     }
                 });
 
@@ -206,6 +207,7 @@ public class ChangePassword extends AppCompatActivity {
     private void goToHome() {
         Intent intent = new Intent(ChangePassword.this,Home.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim);
     }
 
 }

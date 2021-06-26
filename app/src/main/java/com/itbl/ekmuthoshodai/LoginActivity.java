@@ -119,6 +119,7 @@ public class LoginActivity extends Activity {
     private void gotoHome() {
             Intent intent = new Intent(LoginActivity.this, Home.class);
             startActivity(intent);
+        overridePendingTransition(R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim);
     }
 
     private class Login extends AsyncTask<Void, Void, String> {

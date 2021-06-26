@@ -143,6 +143,7 @@ public class MyProductList extends Activity {
                     intent.putExtra("disc_AMOUNT", myProducts.get(position).getImDiscount());
 
                     startActivity(intent);
+                    overridePendingTransition(R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim);
 
                 }
             });
@@ -154,6 +155,7 @@ public class MyProductList extends Activity {
     private void goToHome() {
         Intent intent = new Intent(MyProductList.this,Home.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim);
     }
 
 }

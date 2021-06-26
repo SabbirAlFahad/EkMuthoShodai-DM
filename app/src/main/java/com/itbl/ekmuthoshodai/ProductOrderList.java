@@ -114,7 +114,9 @@ public class ProductOrderList extends Activity {
         @Override
         protected void onPostExecute(String result) {
             pd.dismiss();
-            productOrderAdapter = new ProductOrderAdapter(ProductOrderList.this, R.layout.row_product_order_extra,productOrders);
+
+            productOrderAdapter = new ProductOrderAdapter(ProductOrderList.this,
+                    R.layout.row_product_order_extra,productOrders);
 
             listView.setAdapter(productOrderAdapter);
 
@@ -132,6 +134,7 @@ public class ProductOrderList extends Activity {
                     intent.putExtra("status", productOrders.get(position).getOdrStatus());
 
                     startActivity(intent);
+                    overridePendingTransition(R.anim.nav_default_enter_anim, R.anim.nav_default_pop_exit_anim);
 
                 }
             });
@@ -142,6 +145,7 @@ public class ProductOrderList extends Activity {
     private void goToHome() {
         Intent intent = new Intent(ProductOrderList.this,Home.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim);
     }
 
 }
