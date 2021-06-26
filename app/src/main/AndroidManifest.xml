@@ -34,9 +34,8 @@
         <activity android:name=".NewProductEntry" />
         <activity android:name=".MyProductList" />
         <activity android:name=".ProductOrderList" />
-        <activity android:name=".OrderStatusUpdate" />
         <activity android:name=".ProductUpdate" />
-
+        <activity android:name=".OrderStatusUpdate" />
 
         <meta-data
             android:name="preloaded_fonts"

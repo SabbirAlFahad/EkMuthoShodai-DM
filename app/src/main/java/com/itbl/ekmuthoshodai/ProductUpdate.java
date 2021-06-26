@@ -89,7 +89,7 @@ public class ProductUpdate extends AppCompatActivity {
     }
 
     private void goToBack() {
-        Intent intent = new Intent(ProductUpdate.this,MyProductList.class);
+        Intent intent = new Intent(ProductUpdate.this, MyProductList.class);
         startActivity(intent);
     }
 

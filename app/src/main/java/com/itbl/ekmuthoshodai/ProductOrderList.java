@@ -24,7 +24,6 @@ import java.util.ArrayList;
 public class ProductOrderList extends Activity {
 
     Button btn_back;
-    TextView txtPromo;
     ProductOrderAdapter productOrderAdapter;
     ListView listView;
 
@@ -36,10 +35,8 @@ public class ProductOrderList extends Activity {
         setContentView(R.layout.product_order);
 
         btn_back = findViewById(R.id.btn_back);
-        txtPromo = findViewById(R.id.txtPromo);
         listView = findViewById(R.id.list_mPOrder);
 
-        txtPromo.setTypeface(ResourcesCompat.getFont(this, R.font.amaranth));
 
         Display task = new Display(ProductOrderList.this);
         task.execute();
@@ -76,7 +73,7 @@ public class ProductOrderList extends Activity {
 
             try {
                 int count = 0;
-                String odrId, odrName, odrQuantity, odrAmount, odrDate, odrStatus;
+                String odrId, odrName, odrQuantity, odrAmount, odrDate, dlvryId, odrStatus;
 
                 try {
                     String response = CustomHttpClientGet.execute("http://192.168.22.253:8010/Order_show");
@@ -97,9 +94,10 @@ public class ProductOrderList extends Activity {
                     odrQuantity = JO.getString("qnty");
                     odrAmount = JO.getString("rate");
                     odrDate = JO.getString("date");
+                    dlvryId = JO.getString("dbid");
                     odrStatus = JO.getString("status");
 
-                    ProductOrder productOrder = new ProductOrder(odrId, odrName, odrQuantity, odrAmount, odrDate, odrStatus);
+                    ProductOrder productOrder = new ProductOrder(odrId, odrName, odrQuantity, odrAmount, odrDate, dlvryId, odrStatus);
 
                     productOrders.add(productOrder);
                     count++;
@@ -116,9 +114,27 @@ public class ProductOrderList extends Activity {
         @Override
         protected void onPostExecute(String result) {
             pd.dismiss();
-            productOrderAdapter = new ProductOrderAdapter(ProductOrderList.this, R.layout.row_myproduct,productOrders);
+            productOrderAdapter = new ProductOrderAdapter(ProductOrderList.this, R.layout.row_product_order_extra,productOrders);
 
             listView.setAdapter(productOrderAdapter);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(ProductOrderList.this, OrderStatusUpdate.class);
+
+                    intent.putExtra("order_DTL_ID", productOrders.get(position).getOdrId());
+                    intent.putExtra("item_DESCR", productOrders.get(position).getOdrName());
+                    intent.putExtra("qnty", productOrders.get(position).getOdrQuantity());
+                    intent.putExtra("rate", productOrders.get(position).getOdrAmount());
+                    intent.putExtra("date", productOrders.get(position).getOdrDate());
+                    intent.putExtra("dbid", productOrders.get(position).getDlvryId());
+                    intent.putExtra("status", productOrders.get(position).getOdrStatus());
+
+                    startActivity(intent);
+
+                }
+            });
 
         }
     }

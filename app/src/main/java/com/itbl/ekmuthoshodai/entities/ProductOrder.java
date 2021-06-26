@@ -7,17 +7,20 @@ public class ProductOrder {
     private String odrQuantity;
     private String odrAmount;
     private String odrDate;
+    private String dlvryId;
     private String odrStatus;
 
     public ProductOrder() {
     }
 
-    public ProductOrder(String odrId, String odrName, String odrQuantity, String odrAmount, String odrDate, String odrStatus) {
+    public ProductOrder(String odrId, String odrName, String odrQuantity, String odrAmount, String odrDate,
+                        String dlvryId, String odrStatus) {
         this.odrId = odrId;
         this.odrName = odrName;
         this.odrQuantity = odrQuantity;
         this.odrAmount = odrAmount;
         this.odrDate = odrDate;
+        this.dlvryId = dlvryId;
         this.odrStatus = odrStatus;
     }
 
@@ -59,6 +62,14 @@ public class ProductOrder {
 
     public void setOdrDate(String odrDate) {
         this.odrDate = odrDate;
+    }
+
+    public String getDlvryId() {
+        return dlvryId;
+    }
+
+    public void setDlvryId(String dlvryId) {
+        this.dlvryId = dlvryId;
     }
 
     public String getOdrStatus() {
