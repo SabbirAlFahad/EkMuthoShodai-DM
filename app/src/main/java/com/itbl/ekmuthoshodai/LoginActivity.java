@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -58,6 +60,8 @@ public class LoginActivity extends Activity {
         itbl.setTypeface(ResourcesCompat.getFont(this, R.font.amaranth_bold));
         btnLogin.setTypeface(ResourcesCompat.getFont(this, R.font.bree_serif));
 
+        btnLogin.setEnabled(false);
+
         btnAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.btn_bounce);
 
         SharedPreferences loginPreferences = getSharedPreferences("checkbox", MODE_PRIVATE);
@@ -72,6 +76,9 @@ public class LoginActivity extends Activity {
         }
 
         txt_remember.setTypeface(ResourcesCompat.getFont(this, R.font.amaranth_bold));
+
+        LogUser.addTextChangedListener(loginTextWatcher);
+        LogPassword.addTextChangedListener(loginTextWatcher);
 
         btnLogin.setOnClickListener(new View.OnClickListener(){
 
@@ -148,8 +155,9 @@ public class LoginActivity extends Activity {
             String result = "";
             BufferedReader reader = null;
             StringBuilder stringBuilder;
+
             try {
-                URL url = new URL("http://192.168.22.253:8010/Userlogin");
+                URL url = new URL("http://192.168.22.241:8010/Userlogin");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
@@ -220,6 +228,7 @@ public class LoginActivity extends Activity {
         }
 
     }
+
     public void dialog(String message){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage(message);
@@ -242,5 +251,21 @@ public class LoginActivity extends Activity {
         alertDialog.show();
 
     }
+
+    private TextWatcher loginTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            String usernameInput = LogUser.getText().toString().trim();
+            String passwordInput = LogPassword.getText().toString().trim();
+
+            btnLogin.setEnabled(!usernameInput.isEmpty() && !passwordInput.isEmpty());
+        }
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+    };
 
 }
